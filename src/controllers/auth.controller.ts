@@ -12,10 +12,10 @@ class AuthController {
 
       // Contoh: Update gambar profil untuk user dengan id 1
       // Dalam aplikasi nyata, Anda akan mendapatkan id user dari token otentikasi
-      const userId = 1; 
-      await prisma.accounts.update({
+      const userId = "1"; 
+      await prisma.user.update({
         where: { id: userId },
-        data: { profile_img: upload.secure_url },
+        data: { avatarUrl: upload.secure_url },
       });
 
       res.status(200).send({

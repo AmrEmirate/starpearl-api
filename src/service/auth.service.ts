@@ -7,7 +7,7 @@ export const loginService = async (data: {
   email: string;
   password: string;
 }) => {
-  const account = await prisma.accounts.findUnique({
+  const account = await prisma.user.findUnique({
     where: {
       email: data.email,
     },
@@ -16,7 +16,7 @@ export const loginService = async (data: {
     throw new AppError("Account is not exist", 404);
   }
 
-  const comparePass = await compare(data.password, account.password);
+  const comparePass = await compare(data.password, account.passwordHash);
   if (!comparePass) {
     throw new AppError("Password is wrong", 400);
   }
