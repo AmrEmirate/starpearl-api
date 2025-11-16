@@ -1,0 +1,20 @@
+2025-10-30 18:52:20 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:20 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:22 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:22 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:25 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:25 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:26 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:26 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:27 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:27 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:28 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:28 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:29 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:29 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:30 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:30 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:33 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:33 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-10-30 18:52:34 [ERROR]: Error in login controller Account is not exist
+2025-10-30 18:52:34 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}

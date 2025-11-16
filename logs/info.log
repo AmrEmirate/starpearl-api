@@ -1,0 +1,56 @@
+2025-10-30 18:50:19 [INFO]: GET /products
+2025-10-30 18:50:19 [INFO]: Fetching all active products
+2025-10-30 18:50:19 [INFO]: GET /products
+2025-10-30 18:50:19 [INFO]: Fetching all active products
+2025-10-30 18:50:40 [INFO]: GET /products
+2025-10-30 18:50:40 [INFO]: Fetching all active products
+2025-10-30 18:50:40 [INFO]: GET /products
+2025-10-30 18:50:40 [INFO]: Fetching all active products
+2025-10-30 18:50:57 [INFO]: GET /products
+2025-10-30 18:50:57 [INFO]: Fetching all active products
+2025-10-30 18:50:57 [INFO]: GET /products
+2025-10-30 18:50:57 [INFO]: Fetching all active products
+2025-10-30 18:52:19 [INFO]: POST /auth/login
+2025-10-30 18:52:20 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:22 [INFO]: POST /auth/login
+2025-10-30 18:52:22 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:25 [INFO]: POST /auth/login
+2025-10-30 18:52:25 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:26 [INFO]: POST /auth/login
+2025-10-30 18:52:26 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:27 [INFO]: POST /auth/login
+2025-10-30 18:52:27 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:28 [INFO]: POST /auth/login
+2025-10-30 18:52:28 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:29 [INFO]: POST /auth/login
+2025-10-30 18:52:29 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:30 [INFO]: POST /auth/login
+2025-10-30 18:52:30 [INFO]: Processing login for: demo@example.com
+2025-10-30 18:52:33 [INFO]: POST /auth/login
+2025-10-30 18:52:33 [INFO]: Processing login for: amremirate03@gmail.com
+2025-10-30 18:52:34 [INFO]: POST /auth/login
+2025-10-30 18:52:34 [INFO]: Processing login for: amremirate03@gmail.com
+2025-10-30 18:53:41 [INFO]: GET /products
+2025-10-30 18:53:41 [INFO]: Fetching all active products
+2025-10-30 18:53:42 [INFO]: GET /products
+2025-10-30 18:53:42 [INFO]: Fetching all active products
+2025-10-30 18:54:12 [INFO]: GET /products
+2025-10-30 18:54:12 [INFO]: Fetching all active products
+2025-10-30 18:54:13 [INFO]: GET /products
+2025-10-30 18:54:13 [INFO]: Fetching all active products
+2025-10-30 18:54:17 [INFO]: GET /products
+2025-10-30 18:54:17 [INFO]: Fetching all active products
+2025-10-30 18:54:17 [INFO]: GET /products
+2025-10-30 18:54:17 [INFO]: Fetching all active products
+2025-10-30 18:54:44 [INFO]: GET /products
+2025-10-30 18:54:44 [INFO]: Fetching all active products
+2025-10-30 18:54:44 [INFO]: GET /products
+2025-10-30 18:54:44 [INFO]: Fetching all active products
+2025-10-30 18:55:27 [INFO]: GET /products
+2025-10-30 18:55:27 [INFO]: Fetching all active products
+2025-10-30 18:55:27 [INFO]: GET /products
+2025-10-30 18:55:27 [INFO]: Fetching all active products
+2025-10-30 18:57:40 [INFO]: GET /products
+2025-10-30 18:57:40 [INFO]: Fetching all active products
+2025-10-30 18:57:40 [INFO]: GET /products
+2025-10-30 18:57:40 [INFO]: Fetching all active products

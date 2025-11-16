@@ -1,32 +1,76 @@
-import { Request, Response, NextFunction } from 'express';
-import { prisma } from '../config/prisma';
-import { cloudinaryUpload } from '../config/cloudinary';
+import { Request, Response, NextFunction } from "express";
+import { AuthService } from "../services/auth.service";
+import logger from "../utils/logger";
+import { RequestWithUser } from "../middleware/auth.middleware";
 
 class AuthController {
-  public async changeProfileImg(req: Request, res: Response, next: NextFunction) {
+  private authService: AuthService;
+
+  constructor() {
+    this.authService = new AuthService();
+  }
+
+  public registerBuyer = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (!req.file) {
-        throw { code: 400, message: "No file uploaded" };
-      }
-      const upload = await cloudinaryUpload(req.file);
-
-      // Contoh: Update gambar profil untuk user dengan id 1
-      // Dalam aplikasi nyata, Anda akan mendapatkan id user dari token otentikasi
-      const userId = "1"; 
-      await prisma.user.update({
-        where: { id: userId },
-        data: { avatarUrl: upload.secure_url },
-      });
-
-      res.status(200).send({
+      const result = await this.authService.registerBuyer(req.body);
+      res.status(201).send({
         success: true,
-        message: "Change image profile success",
-        imageUrl: upload.secure_url
+        message: "Buyer registered successfully",
+        data: result,
       });
     } catch (error) {
+      logger.error("Error in registerBuyer controller", error);
       next(error);
     }
-  }
+  };
+
+  public registerSeller = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.authService.registerSeller(req.body);
+      res.status(201).send({
+        success: true,
+        message: "Seller registration pending approval",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in registerSeller controller", error);
+      next(error);
+    }
+  };
+
+  public login = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.authService.login(req.body);
+      res.status(200).send({
+        success: true,
+        message: "Login successful",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in login controller", error);
+      next(error);
+    }
+  };
+
+  public changeProfileImg = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user || !req.user.id) {
+        throw new Error("User not authenticated");
+      }
+      if (!req.file) {
+        throw new Error("No file uploaded");
+      }
+
+      const result = await this.authService.updateProfileImage(req.user.id, req.file);
+      res.status(200).send({
+        success: true,
+        ...result,
+      });
+    } catch (error) {
+      logger.error("Error in changeProfileImg controller", error);
+      next(error);
+    }
+  };
 }
 
 export default AuthController;

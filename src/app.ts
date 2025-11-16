@@ -2,8 +2,15 @@ import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
-import AuthRouter from "./routers/auth.router";
+import AuthRouter from "./routers/auth.router"; // Menggunakan router yang kita buat
 import logger from "./utils/logger";
+import AppError from "./utils/AppError";
+import UserRouter from "./routers/user.router";
+import ProductRouter from "./routers/product.router";
+import CartRouter from "./routers/cart.router";
+import AddressRouter from "./routers/address.router";
+import OrderRouter from "./routers/order.router"; 
+import AdminRouter from "./routers/admin.router";// Import AppError
 
 const PORT: string = process.env.PORT || "2020";
 
@@ -14,13 +21,12 @@ class App {
     this.app = express();
     this.configure();
     this.route();
-    this.errorHandler(); // Pastikan error handler dipanggil setelah route
+    this.errorHandler(); // Memanggil error handler
   }
 
   private configure(): void {
     this.app.use(cors());
     this.app.use(express.json());
-    // Middleware untuk mencatat setiap request yang masuk
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       logger.info(`${req.method} ${req.path}`);
       next();
@@ -29,12 +35,34 @@ class App {
 
   private route(): void {
     this.app.get("/", (req: Request, res: Response) => {
-      res.status(200).send("<h1>Classbase API</h1>");
+      res.status(200).send("<h1>Starpearl API</h1>");
     });
 
-    // Mendaftarkan AuthRouter
+    // Mendaftarkan AuthRouter yang sudah lengkap
     const authRouter: AuthRouter = new AuthRouter();
     this.app.use("/auth", authRouter.getRouter());
+
+    const adminRouter: AdminRouter = new AdminRouter();
+    this.app.use("/admin", adminRouter.getRouter());
+
+    const userRouter: UserRouter = new UserRouter();
+    this.app.use("/users", userRouter.getRouter());
+
+    const productRouter: ProductRouter = new ProductRouter();
+    this.app.use("/products", productRouter.getRouter());
+
+    const cartRouter: CartRouter = new CartRouter();
+    this.app.use("/cart", cartRouter.getRouter());
+
+    const orderRouter: OrderRouter = new OrderRouter();
+    this.app.use("/orders", orderRouter.getRouter());
+
+    const addressRouter: AddressRouter = new AddressRouter();
+    this.app.use("/addresses", addressRouter.getRouter());
+
+    // Nanti, router lain akan ditambahkan di sini:
+    // const productRouter = new ProductRouter();
+    // this.app.use("/products", productRouter.getRouter());
   }
 
   private errorHandler(): void {
@@ -43,8 +71,25 @@ class App {
         logger.error(
           `${req.method} ${req.path}: ${error.message} ${JSON.stringify(error)}`
         );
-        // Menggunakan `error.code` dari AppError untuk status response
-        res.status(error.code || 500).send(error);
+
+        if (error instanceof AppError) {
+          res.status(error.code).send(error);
+          return;
+        }
+
+        if (Array.isArray(error)) {
+          res.status(400).send({
+            isSuccess: false,
+            message: "Validation Error",
+            errors: error,
+          });
+          return;
+        }
+        
+        res.status(error.code || 500).send({
+          isSuccess: false,
+          message: error.message || "Internal Server Error"
+        });
       }
     );
   }
