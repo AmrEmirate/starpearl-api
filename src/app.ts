@@ -2,15 +2,16 @@ import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
-import AuthRouter from "./routers/auth.router"; // Menggunakan router yang kita buat
+import AuthRouter from "./routers/auth.router";
 import logger from "./utils/logger";
 import AppError from "./utils/AppError";
 import UserRouter from "./routers/user.router";
 import ProductRouter from "./routers/product.router";
 import CartRouter from "./routers/cart.router";
 import AddressRouter from "./routers/address.router";
-import OrderRouter from "./routers/order.router"; 
-import AdminRouter from "./routers/admin.router";// Import AppError
+import OrderRouter from "./routers/order.router";
+import AdminRouter from "./routers/admin.router";
+import CommunityRouter from "./routers/community.router";
 
 const PORT: string = process.env.PORT || "2020";
 
@@ -21,7 +22,7 @@ class App {
     this.app = express();
     this.configure();
     this.route();
-    this.errorHandler(); // Memanggil error handler
+    this.errorHandler();
   }
 
   private configure(): void {
@@ -38,7 +39,6 @@ class App {
       res.status(200).send("<h1>Starpearl API</h1>");
     });
 
-    // Mendaftarkan AuthRouter yang sudah lengkap
     const authRouter: AuthRouter = new AuthRouter();
     this.app.use("/auth", authRouter.getRouter());
 
@@ -60,9 +60,8 @@ class App {
     const addressRouter: AddressRouter = new AddressRouter();
     this.app.use("/addresses", addressRouter.getRouter());
 
-    // Nanti, router lain akan ditambahkan di sini:
-    // const productRouter = new ProductRouter();
-    // this.app.use("/products", productRouter.getRouter());
+    const communityRouter: CommunityRouter = new CommunityRouter();
+    this.app.use("/community", communityRouter.getRouter());
   }
 
   private errorHandler(): void {
