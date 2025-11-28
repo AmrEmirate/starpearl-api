@@ -1,9 +1,9 @@
 import { prisma } from "../config/prisma";
-import { CartRepository } from "../repositories/cart.repository";
+import { CartRepository, FullCart } from "../repositories/cart.repository";
 import { OrderRepository } from "../repositories/order.repository";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
-import { Order } from "../generated/prisma";
+import { Order, OrderStatus } from "../generated/prisma";
 
 export class CheckoutService {
   private cartRepository: CartRepository;
@@ -22,7 +22,6 @@ export class CheckoutService {
       `Processing checkout for user: ${userId} with address: ${addressId}`
     );
 
-    // 1. Validasi Alamat
     const address = await prisma.address.findUnique({
       where: { id: addressId, userId },
     });
@@ -31,7 +30,6 @@ export class CheckoutService {
       throw new AppError("Address not found or does not belong to user", 404);
     }
 
-    // 2. Ambil Keranjang
     const cart = await this.cartRepository.findCartByUserId(userId);
     if (!cart) {
       throw new AppError("Cart not found", 404);
@@ -42,12 +40,15 @@ export class CheckoutService {
       throw new AppError("Cart is empty", 400);
     }
 
-    // 3. Hitung Total dan Validasi Stok
     let totalAmount = 0;
-    const orderItemsData = [];
+    const orderItemsData: Array<{
+      productId: string;
+      quantity: number;
+      price: any;
+      storeId: string;
+    }> = [];
 
     for (const item of fullCart.items) {
-      // Validasi stok lagi untuk memastikan
       if (item.product.stock < item.quantity) {
         throw new AppError(
           `Not enough stock for product: ${item.product.name}`,
@@ -61,25 +62,29 @@ export class CheckoutService {
       orderItemsData.push({
         productId: item.productId,
         quantity: item.quantity,
-        price: item.product.price, // Harga saat checkout
+        price: item.product.price,
+        storeId: item.product.storeId,
       });
     }
 
-    // Tambahan biaya (opsional, sesuaikan dengan frontend)
     const serviceFee =
       totalAmount < 50000 ? 0 : Math.ceil(totalAmount / 100000) * 1000;
     const shippingCost = totalAmount > 200000 ? 0 : 25000;
     const finalTotal = totalAmount + serviceFee + shippingCost;
 
-    // 4. Buat Order dalam Transaksi
     const order = await prisma.$transaction(async (tx) => {
-      // a. Buat Order
       const newOrder = await tx.order.create({
         data: {
           userId,
-          addressId,
+          shippingAddressId: addressId,
           totalAmount: finalTotal,
-          status: "PENDING",
+          subtotal: totalAmount,
+          shippingFee: shippingCost,
+          serviceFee: serviceFee,
+          logisticsOption: "Standard",
+          paymentMethod: "Manual",
+          paymentStatus: "PENDING",
+          status: OrderStatus.PENDING_PAYMENT,
           items: {
             create: orderItemsData,
           },
@@ -89,7 +94,6 @@ export class CheckoutService {
         },
       });
 
-      // b. Kurangi Stok Produk
       for (const item of fullCart.items) {
         await tx.product.update({
           where: { id: item.productId },
@@ -101,7 +105,6 @@ export class CheckoutService {
         });
       }
 
-      // c. Kosongkan Keranjang (Hapus semua item)
       await tx.cartItem.deleteMany({
         where: { cartId: cart.id },
       });

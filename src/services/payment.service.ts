@@ -1,3 +1,4 @@
+// @ts-ignore - midtrans-client doesn't have TypeScript definitions
 import midtransClient from "midtrans-client";
 import { Order } from "../generated/prisma";
 import AppError from "../utils/AppError";

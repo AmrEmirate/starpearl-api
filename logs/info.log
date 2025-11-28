@@ -70,3 +70,29 @@
 2025-11-28 12:50:38 [INFO]: Fetching all active products
 2025-11-28 12:50:38 [INFO]: GET /products
 2025-11-28 12:50:38 [INFO]: Fetching all active products
+2025-11-28 16:04:58 [INFO]: GET /products
+2025-11-28 16:05:04 [INFO]: GET /community
+2025-11-28 16:05:04 [INFO]: GET /community
+2025-11-28 16:05:06 [INFO]: GET /products
+2025-11-28 16:05:06 [INFO]: GET /products
+2025-11-28 16:05:16 [INFO]: GET /products
+2025-11-28 16:05:22 [INFO]: GET /products
+2025-11-28 16:05:22 [INFO]: GET /products
+2025-11-28 16:05:40 [INFO]: POST /auth/login
+2025-11-28 16:05:40 [INFO]: Processing login for: demo@example.com
+2025-11-28 16:05:42 [INFO]: GET /community
+2025-11-28 16:05:42 [INFO]: GET /community
+2025-11-28 16:05:55 [INFO]: GET /products
+2025-11-28 16:05:55 [INFO]: GET /products
+2025-11-28 16:09:50 [INFO]: GET /community
+2025-11-28 16:09:50 [INFO]: GET /community
+2025-11-28 16:09:51 [INFO]: GET /products
+2025-11-28 16:09:52 [INFO]: GET /products
+2025-11-28 16:09:55 [INFO]: GET /products
+2025-11-28 16:09:55 [INFO]: GET /products
+2025-11-28 16:09:56 [INFO]: GET /community
+2025-11-28 16:09:56 [INFO]: GET /community
+2025-11-28 16:09:57 [INFO]: GET /products
+2025-11-28 16:09:58 [INFO]: GET /products
+2025-11-28 16:14:46 [INFO]: GET /products
+2025-11-28 16:14:51 [INFO]: GET /products

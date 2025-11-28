@@ -1,15 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 import { PaymentService } from "../services/payment.service";
-import { OrderService } from "../services/order.service";
+import { OrderRepository } from "../repositories/order.repository";
+import { OrderStatus } from "../generated/prisma";
 import logger from "../utils/logger";
 
 export class PaymentController {
   private paymentService: PaymentService;
-  private orderService: OrderService;
+  private orderRepository: OrderRepository;
 
   constructor() {
     this.paymentService = new PaymentService();
-    this.orderService = new OrderService();
+    this.orderRepository = new OrderRepository();
   }
 
   public handleWebhook = async (
@@ -30,7 +31,6 @@ export class PaymentController {
         `Received webhook for order ${order_id}: ${transaction_status}`
       );
 
-      // 1. Verify Signature
       const isValid = this.paymentService.verifySignature(
         order_id,
         req.body.status_code,
@@ -44,21 +44,35 @@ export class PaymentController {
         return;
       }
 
-      // 2. Map Midtrans Status to Order Status
-      let newStatus = "PENDING";
+      let newStatus: OrderStatus = OrderStatus.PENDING_PAYMENT;
+      let paymentStatus = "PENDING";
+
       if (transaction_status === "capture") {
         if (fraud_status === "challenge") {
-          newStatus = "PENDING"; // Challenge means manual review needed
+          newStatus = OrderStatus.PENDING_PAYMENT;
+          paymentStatus = "PENDING";
         } else if (fraud_status === "accept") {
-          newStatus = "PROCESSING"; // Paid and verified
+          newStatus = OrderStatus.PROCESSING;
+          paymentStatus = "PAID";
         }
       } else if (transaction_status === "settlement") {
-        newStatus = "PROCESSING"; // Paid
+        newStatus = OrderStatus.PROCESSING;
+        paymentStatus = "PAID";
       } else if (
         transaction_status === "cancel" ||
         transaction_status === "deny" ||
         transaction_status === "expire"
       ) {
+        newStatus = OrderStatus.CANCELLED;
+        paymentStatus = "FAILED";
+      }
+
+      await this.orderRepository.updateOrderStatus(order_id, newStatus, {
+        paymentStatus,
+        paidAt: paymentStatus === "PAID" ? new Date() : null,
+      });
+
+      logger.info(`Order ${order_id} updated to ${newStatus}`);
       res.status(200).json({ status: "OK" });
     } catch (error) {
       logger.error("Webhook Error:", error);
@@ -66,3 +80,5 @@ export class PaymentController {
     }
   };
 }
+
+export default PaymentController;

@@ -16,14 +16,12 @@ export class UserRepository {
 
   async updateUser(
     userId: string,
-    data: Partial<Pick<User, "name">> // Untuk saat ini kita hanya izinkan update 'name'
+    data: Partial<Pick<User, "name" | "passwordHash">>
   ): Promise<User> {
     try {
       return await prisma.user.update({
         where: { id: userId },
-        data: {
-          name: data.name,
-        },
+        data,
       });
     } catch (error) {
       logger.error(`Error updating user: ${userId}`, error);

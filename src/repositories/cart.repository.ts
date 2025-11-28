@@ -1,17 +1,26 @@
 import { prisma } from "../config/prisma";
-import { Cart, CartItem } from "../generated/prisma";
+import { Cart, CartItem, Product } from "../generated/prisma";
 import logger from "../utils/logger";
 
+type CartItemWithProduct = CartItem & {
+  product: Product & {
+    store: {
+      name: string;
+    };
+    storeId: string;
+  };
+};
+
+export type FullCart = Cart & {
+  items: CartItemWithProduct[];
+};
+
 export class CartRepository {
-  /**
-   * Menemukan keranjang unik milik user.
-   */
   async findCartByUserId(userId: string): Promise<Cart | null> {
     try {
-      return await prisma.cart.findUnique({ // Diubah ke findUnique
+      return await prisma.cart.findUnique({
         where: {
           userId: userId,
-          // 'isCheckedOut' dihapus karena tidak ada di schema.prisma
         },
       });
     } catch (error) {
@@ -20,9 +29,6 @@ export class CartRepository {
     }
   }
 
-  /**
-   * Membuat keranjang baru untuk user.
-   */
   async createCart(userId: string): Promise<Cart> {
     try {
       return await prisma.cart.create({
@@ -36,10 +42,10 @@ export class CartRepository {
     }
   }
 
-  /**
-   * Menemukan item spesifik di dalam keranjang.
-   */
-  async findCartItem(cartId: string, productId: string): Promise<CartItem | null> {
+  async findCartItem(
+    cartId: string,
+    productId: string
+  ): Promise<CartItem | null> {
     try {
       return await prisma.cartItem.findFirst({
         where: {
@@ -53,17 +59,17 @@ export class CartRepository {
     }
   }
 
-  /**
-   * Menambahkan item baru ke keranjang.
-   */
-  async addCartItem(cartId: string, productId: string, quantity: number): Promise<CartItem> {
+  async addCartItem(
+    cartId: string,
+    productId: string,
+    quantity: number
+  ): Promise<CartItem> {
     try {
       return await prisma.cartItem.create({
         data: {
           cartId: cartId,
           productId: productId,
           quantity: quantity,
-          // 'price' dihapus karena tidak ada di schema.prisma
         },
       });
     } catch (error) {
@@ -72,10 +78,10 @@ export class CartRepository {
     }
   }
 
-  /**
-   * Memperbarui kuantitas item di keranjang.
-   */
-  async updateCartItemQuantity(cartItemId: string, newQuantity: number): Promise<CartItem> {
+  async updateCartItemQuantity(
+    cartItemId: string,
+    newQuantity: number
+  ): Promise<CartItem> {
     try {
       return await prisma.cartItem.update({
         where: { id: cartItemId },
@@ -87,45 +93,40 @@ export class CartRepository {
     }
   }
 
-  /**
-   * Mengambil semua data keranjang, termasuk item dan info produknya.
-   */
-  async getFullCart(cartId: string): Promise<Cart | null> {
+  async getFullCart(cartId: string): Promise<FullCart | null> {
     try {
-      return await prisma.cart.findUnique({
+      return (await prisma.cart.findUnique({
         where: { id: cartId },
         include: {
           items: {
             include: {
               product: {
-                select: {
-                  id: true,
-                  name: true,
-                  imageUrls: true,
-                  stock: true,
-                  price: true, // 'price' ditambahkan di sini
+                include: {
                   store: {
-                    select: { name: true }
-                  }
-                }
-              }
-            }
-          }
-        }
-      });
+                    select: { name: true },
+                  },
+                },
+              },
+            },
+          },
+        },
+      })) as FullCart | null;
     } catch (error) {
-        logger.error(`Error getting full cart: ${cartId}`, error);
-        throw new Error("Database query failed");
+      logger.error(`Error getting full cart: ${cartId}`, error);
+      throw new Error("Database query failed");
     }
   }
 
-  async findCartItemByIdAndUserId(itemId: string, userId: string): Promise<CartItem | null> {
+  async findCartItemByIdAndUserId(
+    itemId: string,
+    userId: string
+  ): Promise<CartItem | null> {
     try {
       return await prisma.cartItem.findFirst({
         where: {
           id: itemId,
-          cart: { // Cek relasi ke Cart
-            userId: userId, // Pastikan Cart milik user yang benar
+          cart: {
+            userId: userId,
           },
         },
       });
@@ -135,9 +136,6 @@ export class CartRepository {
     }
   }
 
-  /**
-   * Menghapus item dari keranjang.
-   */
   async deleteCartItem(itemId: string): Promise<CartItem> {
     try {
       return await prisma.cartItem.delete({

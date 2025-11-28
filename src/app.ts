@@ -21,6 +21,7 @@ import WithdrawalRouter from "./routers/withdrawal.router";
 import ChatRouter from "./routers/chat.router";
 
 import VoucherRouter from "./routers/voucher.router";
+import StatsRouter from "./routers/stats.router";
 
 const PORT: string = process.env.PORT || "2020";
 
@@ -95,6 +96,9 @@ class App {
 
     const voucherRouter: VoucherRouter = new VoucherRouter();
     this.app.use("/vouchers", voucherRouter.getRouter());
+
+    const statsRouter: StatsRouter = new StatsRouter();
+    this.app.use("/stats", statsRouter.getRouter());
   }
 
   private errorHandler(): void {

@@ -20,3 +20,5 @@
 2025-10-30 18:52:34 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
 2025-11-28 12:50:31 [ERROR]: Error in getProductById controller Product not found or is inactive
 2025-11-28 12:50:31 [ERROR]: GET /products/cmiigx83u000008l09k9g3q4a: Product not found or is inactive {"code":404,"message":"Product not found or is inactive","isSuccess":false}
+2025-11-28 16:05:40 [ERROR]: Error in login controller Account is not exist
+2025-11-28 16:05:40 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
