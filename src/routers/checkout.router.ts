@@ -17,7 +17,6 @@ class CheckoutRouter {
   private initializeRoute(): void {
     this.route.use(this.authMiddleware.verifyToken);
 
-    // POST /checkout - Membuat pesanan dari keranjang
     this.route.post("/", this.checkoutController.checkout);
   }
 

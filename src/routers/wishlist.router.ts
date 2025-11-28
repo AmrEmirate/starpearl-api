@@ -15,16 +15,12 @@ class WishlistRouter {
   }
 
   private initializeRoute(): void {
-    // Semua route wishlist butuh login
     this.route.use(this.authMiddleware.verifyToken);
 
-    // GET /wishlist - Ambil wishlist user
     this.route.get("/", this.wishlistController.getMyWishlist);
 
-    // POST /wishlist - Tambah item ke wishlist
     this.route.post("/", this.wishlistController.addToWishlist);
 
-    // DELETE /wishlist/:id - Hapus item dari wishlist (by productId)
     this.route.delete("/:id", this.wishlistController.removeFromWishlist);
   }
 

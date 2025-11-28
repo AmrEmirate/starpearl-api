@@ -11,7 +11,6 @@ export class WithdrawalService {
     bankAccount: string,
     bankUser: string
   ): Promise<Withdrawal> {
-    // 1. Get Store and Check Balance
     const store = await prisma.store.findUnique({
       where: { userId },
     });
@@ -28,10 +27,8 @@ export class WithdrawalService {
       throw new AppError("Minimum withdrawal amount is 10,000", 400);
     }
 
-    // 2. Create Withdrawal Record & Deduct Balance (Transaction)
     try {
       const result = await prisma.$transaction(async (tx) => {
-        // Deduct balance
         await tx.store.update({
           where: { id: store.id },
           data: {
@@ -41,7 +38,6 @@ export class WithdrawalService {
           },
         });
 
-        // Create withdrawal record
         const withdrawal = await tx.withdrawal.create({
           data: {
             storeId: store.id,

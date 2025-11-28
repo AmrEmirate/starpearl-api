@@ -4,7 +4,6 @@ import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
 export class ChatService {
-  // Get or Create Chat Room between Buyer and Store
   public async getOrCreateRoom(
     buyerId: string,
     storeId: string
@@ -30,13 +29,11 @@ export class ChatService {
     return room;
   }
 
-  // Get User's Chat Rooms
   public async getUserRooms(
     userId: string,
     role: "BUYER" | "SELLER"
   ): Promise<any[]> {
     if (role === "SELLER") {
-      // Find store first
       const store = await prisma.store.findUnique({ where: { userId } });
       if (!store) throw new AppError("Store not found", 404);
 
@@ -66,7 +63,6 @@ export class ChatService {
     }
   }
 
-  // Get Messages in a Room
   public async getRoomMessages(roomId: string): Promise<ChatMessage[]> {
     return prisma.chatMessage.findMany({
       where: { chatRoomId: roomId },
@@ -74,7 +70,6 @@ export class ChatService {
     });
   }
 
-  // Send Message
   public async sendMessage(
     roomId: string,
     senderId: string,
@@ -83,7 +78,6 @@ export class ChatService {
     const room = await prisma.chatRoom.findUnique({ where: { id: roomId } });
     if (!room) throw new AppError("Room not found", 404);
 
-    // Update room timestamp
     await prisma.chatRoom.update({
       where: { id: roomId },
       data: { updatedAt: new Date() },

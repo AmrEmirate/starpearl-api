@@ -15,8 +15,6 @@ export class VoucherService {
       expiresAt?: Date;
     }
   ): Promise<StoreVoucher> {
-    // Check if code already exists for this store (or globally if unique constraint is global)
-    // Schema says code is unique globally or per store? Schema: code String @unique. So globally unique.
     const existing = await prisma.storeVoucher.findUnique({
       where: { code: data.code },
     });
@@ -25,8 +23,6 @@ export class VoucherService {
       throw new AppError("Voucher code already exists", 400);
     }
 
-    // Get store ID from user ID if needed, but here we assume storeId is passed correctly or derived
-    // Actually, usually we pass userId and find store. Let's assume the controller passes the Store ID.
 
     return prisma.storeVoucher.create({
       data: {

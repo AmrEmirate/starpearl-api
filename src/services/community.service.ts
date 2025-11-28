@@ -78,13 +78,11 @@ export class CommunityService {
     });
 
     if (existingLike) {
-      // Unlike
       await prisma.communityPostLike.delete({
         where: { id: existingLike.id },
       });
       return { liked: false };
     } else {
-      // Like
       await prisma.communityPostLike.create({
         data: {
           postId,

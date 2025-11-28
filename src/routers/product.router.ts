@@ -19,10 +19,8 @@ class ProductRouter {
   }
 
   private initializeRoute(): void {
-    // GET /products - (Publik) Mengambil semua produk
     this.route.get("/", this.productController.getAllProducts);
 
-    // GET /products/my-products - (Seller) Mengambil produk toko sendiri
     this.route.get(
       "/my-products",
       this.authMiddleware.verifyToken,
@@ -30,19 +28,15 @@ class ProductRouter {
       this.productController.getMyProducts
     );
 
-    // GET /products/:id - (Publik) Mengambil detail produk
     this.route.get("/:id", this.productController.getProductById);
-    // Rute POST /products
-    // Dilindungi: Harus login (verifyToken) dan harus SELLER (isSeller)
     this.route.post(
       "/",
       this.authMiddleware.verifyToken,
-      this.authMiddleware.isSeller, // Middleware otorisasi untuk seller
-      createProductValidation, // Middleware validasi
+      this.authMiddleware.isSeller,
+      createProductValidation,
       this.productController.createProduct
     );
 
-    // PATCH /products/:id - (Seller) Update produk
     this.route.patch(
       "/:id",
       this.authMiddleware.verifyToken,
@@ -50,7 +44,6 @@ class ProductRouter {
       this.productController.updateProduct
     );
 
-    // DELETE /products/:id - (Seller) Hapus produk
     this.route.delete(
       "/:id",
       this.authMiddleware.verifyToken,
@@ -58,12 +51,8 @@ class ProductRouter {
       this.productController.deleteProduct
     );
 
-    // --- Reviews ---
-
-    // GET /products/:id/reviews - (Publik) Mengambil review produk
     this.route.get("/:id/reviews", this.reviewController.getProductReviews);
 
-    // POST /products/:id/reviews - (Buyer) Menambah review
     this.route.post(
       "/:id/reviews",
       this.authMiddleware.verifyToken,

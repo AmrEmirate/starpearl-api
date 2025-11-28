@@ -15,17 +15,14 @@ class AdminRouter {
   }
 
   private initializeRoutes(): void {
-    // All routes require ADMIN role
     this.route.use(this.authMiddleware.verifyToken);
     this.route.use(this.authMiddleware.isAdmin);
 
     this.route.get("/stats", this.adminController.getStats);
 
-    // Store Management
     this.route.get("/stores/pending", this.adminController.getPendingStores);
     this.route.patch("/stores/:id/verify", this.adminController.verifyStore);
 
-    // Withdrawal Management
     this.route.get(
       "/withdrawals/pending",
       this.adminController.getPendingWithdrawals

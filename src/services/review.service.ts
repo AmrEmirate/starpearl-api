@@ -22,12 +22,10 @@ export class ReviewService {
   ): Promise<Review> {
     logger.info(`Adding review for product ${productId} by user ${userId}`);
 
-    // 1. Validasi Rating
     if (rating < 1 || rating > 5) {
       throw new AppError("Rating must be between 1 and 5", 400);
     }
 
-    // 2. Cek apakah user sudah pernah membeli produk ini dan statusnya DELIVERED
     const hasPurchased = await prisma.orderItem.findFirst({
       where: {
         productId: productId,
@@ -45,7 +43,6 @@ export class ReviewService {
       );
     }
 
-    // 3. Cek apakah sudah pernah review (opsional, tapi bagus untuk mencegah spam)
     const existingReview = await prisma.review.findFirst({
       where: {
         userId,

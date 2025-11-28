@@ -15,7 +15,6 @@ class WithdrawalRouter {
   }
 
   private initializeRoutes(): void {
-    // All routes require seller authentication
     this.route.use(this.authMiddleware.verifyToken);
     this.route.use(this.authMiddleware.isSeller);
 

@@ -15,10 +15,8 @@ class ReviewRouter {
   }
 
   private initializeRoute(): void {
-    // GET /reviews/:id - Get reviews for a product (Public)
     this.route.get("/:id", this.reviewController.getProductReviews);
 
-    // POST /reviews/:id - Add a review (Protected)
     this.route.post(
       "/:id",
       this.authMiddleware.verifyToken,

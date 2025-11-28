@@ -23,7 +23,6 @@ export class WishlistService {
 
   public async getMyWishlist(userId: string) {
     const wishlist = await this.getOrCreateWishlist(userId);
-    // Fetch fresh data with relations
     return this.wishlistRepository.getWishlistByUserId(userId);
   }
 
@@ -38,7 +37,6 @@ export class WishlistService {
 
     const wishlist = await this.getOrCreateWishlist(userId);
 
-    // Check if already in wishlist
     const existingItem = await this.wishlistRepository.findItem(
       wishlist.id,
       productId

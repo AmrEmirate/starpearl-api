@@ -2,7 +2,6 @@ import { prisma } from "../config/prisma";
 
 export class AnalyticsService {
   async getStoreStats(storeId: string) {
-    // 1. Total Revenue (Sum of totalAmount for COMPLETED orders)
     const revenueResult = await prisma.order.aggregate({
       where: {
         items: {
@@ -17,9 +16,6 @@ export class AnalyticsService {
       },
     });
 
-    // Note: The above query sums the *entire* order amount even if it contains items from other stores.
-    // For a multi-vendor system, we should sum the OrderItem.price * quantity for this store.
-    // Let's refine this.
 
     const orderItems = await prisma.orderItem.findMany({
       where: {
@@ -41,7 +37,6 @@ export class AnalyticsService {
       0
     );
 
-    // 2. Total Orders (Count of orders containing items from this store)
     const totalOrders = await prisma.order.count({
       where: {
         items: {
@@ -52,14 +47,12 @@ export class AnalyticsService {
       },
     });
 
-    // 3. Total Products
     const totalProducts = await prisma.product.count({
       where: {
         storeId: storeId,
       },
     });
 
-    // 4. Recent Orders
     const recentOrders = await prisma.order.findMany({
       where: {
         items: {

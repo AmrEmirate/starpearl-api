@@ -32,8 +32,6 @@ export class StoreService {
       throw new AppError("Store not found for this user", 404);
     }
 
-    // Prevent updating critical fields like userId or status directly via this endpoint if needed
-    // For now, we allow updating name, description, etc.
     const updateData = { ...data };
     delete (updateData as any).id;
     delete (updateData as any).userId;

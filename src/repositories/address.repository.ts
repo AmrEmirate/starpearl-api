@@ -2,10 +2,8 @@ import { prisma } from "../config/prisma";
 import { Address } from "../generated/prisma";
 import logger from "../utils/logger";
 
-// Tipe data input untuk membuat alamat baru
 type CreateAddressInput = Omit<Address, "id" | "createdAt" | "updatedAt">;
 
-// Tipe data input untuk update alamat
 type UpdateAddressInput = Partial<Omit<CreateAddressInput, "userId">>;
 
 export class AddressRepository {
@@ -14,8 +12,6 @@ export class AddressRepository {
    */
   async createAddress(data: CreateAddressInput): Promise<Address> {
     try {
-      // Jika alamat ini diset sebagai default,
-      // kita harus set 'isDefault = false' untuk semua alamat lain milik user ini.
       if (data.isDefault) {
         await prisma.address.updateMany({
           where: { userId: data.userId, isDefault: true },
@@ -68,7 +64,6 @@ export class AddressRepository {
    */
   async updateAddress(addressId: string, data: UpdateAddressInput, userId: string): Promise<Address> {
     try {
-      // Sama seperti create, tangani logika 'isDefault'
       if (data.isDefault) {
         await prisma.address.updateMany({
           where: { userId: userId, isDefault: true },

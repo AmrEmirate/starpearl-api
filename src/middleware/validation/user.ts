@@ -16,6 +16,5 @@ export const updateUserValidation = [
     .notEmpty()
     .withMessage("Name cannot be empty")
     .isString(),
-  // Tambahkan validasi lain di sini (misal: phone, bio) jika diperlukan
   validationHandler,
 ];

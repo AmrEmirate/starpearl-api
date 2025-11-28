@@ -39,6 +39,5 @@ export const createProductValidation = [
         if (!Array.isArray(value)) return false;
         return value.every((item) => typeof item === 'string' && item.startsWith('http'));
     }).withMessage('All imageUrls must be valid URLs'),
-  // Anda bisa tambahkan validasi lain di sini jika perlu
   validationHandler,
 ];

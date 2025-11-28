@@ -7,7 +7,6 @@ import logger from "../utils/logger";
 import { Decimal } from "@prisma/client/runtime/library";
 import { PaymentService } from "./payment.service";
 
-// Tipe data input dari controller
 interface OrderInputData {
   addressId: string;
   logisticsOption: string;
@@ -29,7 +28,6 @@ export class OrderService {
   public async createOrder(userId: string, data: OrderInputData): Promise<any> {
     logger.info(`Processing createOrder for user: ${userId}`);
 
-    // 1. Ambil Keranjang Penuh
     const userCart = await this.cartRepository.findCartByUserId(userId);
     if (!userCart) {
       throw new AppError("User cart not found", 404);
@@ -42,7 +40,6 @@ export class OrderService {
       throw new AppError("Cannot create order from an empty cart", 400);
     }
 
-    // 2. Validasi Alamat
     const address = await prisma.address.findFirst({
       where: { id: data.addressId, userId: userId },
     });
@@ -50,34 +47,27 @@ export class OrderService {
       throw new AppError("Address not found or does not belong to user", 404);
     }
 
-    // 3. Validasi Ulang Harga (Sangat Penting untuk Keamanan)
-    // Hitung ulang subtotal berdasarkan data di database
     const calculatedSubtotal = fullCart.items.reduce((sum, item) => {
       return sum + Number(item.product.price) * item.quantity;
     }, 0);
 
-    // Hitung ulang biaya layanan berdasarkan blueprint [cite: 71-73]
     const calculatedServiceFee =
       calculatedSubtotal < 50000
         ? 0
         : Math.ceil(calculatedSubtotal / 100000) * 1000;
 
-    // (Di aplikasi nyata, ongkir juga dihitung ulang)
     const calculatedShippingCost = data.shippingCost;
 
     const calculatedTotalPrice =
       calculatedSubtotal + calculatedServiceFee + calculatedShippingCost;
 
-    // Bandingkan total dari frontend dengan total backend
     if (Math.abs(calculatedTotalPrice - data.totalPrice) > 1) {
-      // Toleransi 1 rupiah
       logger.warn(
         `Price mismatch for user ${userId}. FE: ${data.totalPrice}, BE: ${calculatedTotalPrice}`
       );
       throw new AppError("Total price mismatch. Please try again.", 400);
     }
 
-    // 4. Kirim data yang sudah divalidasi ke Repository
     const orderInput = {
       userId,
       cart: fullCart,
@@ -92,7 +82,6 @@ export class OrderService {
 
     const order = await this.orderRepository.createOrderFromCart(orderInput);
 
-    // 5. Generate Snap Token
     const paymentService = new PaymentService();
     const snapToken = await paymentService.generateSnapToken(order);
 
@@ -136,7 +125,6 @@ export class OrderService {
       throw new AppError("Store not found for this user", 404);
     }
 
-    // Pastikan order ini memang berisi produk dari toko ini
     const orderItem = await prisma.orderItem.findFirst({
       where: {
         orderId: orderId,
@@ -151,7 +139,6 @@ export class OrderService {
       );
     }
 
-    // Validasi status transition (sederhana)
     const validStatuses = [
       "PENDING",
       "PROCESSED",
@@ -163,7 +150,6 @@ export class OrderService {
       throw new AppError("Invalid order status", 400);
     }
 
-    // Update data
     const updateData: any = { status };
     if (status === "SHIPPED" && shippingResi) {
       updateData.shippingResi = shippingResi;

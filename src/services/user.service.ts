@@ -26,7 +26,6 @@ export class UserService {
   public async updateUserProfile(userId: string, data: { name?: string }) {
     logger.info(`Updating profile for user: ${userId}`);
 
-    // Kita hanya akan proses data yang diizinkan (contoh: name)
     const updateData: Partial<Pick<User, "name">> = {};
     if (data.name) {
       updateData.name = data.name;

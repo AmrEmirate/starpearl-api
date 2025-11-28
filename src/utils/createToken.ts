@@ -6,10 +6,8 @@ export const createToken = (
   expiresIn: string       // Tipe yang jelas (contoh: "24h")
 ) => {
   
-  // 1. Baca 'secret' dari file .env
   const secret = process.env.JWT_SECRET;
 
-  // 2. Pastikan 'secret' ada
   if (!secret) {
     throw new Error(
       "JWT_SECRET is not defined in .env file. Please add it."

@@ -16,7 +16,6 @@ class UserRouter {
   }
 
   private initializeRoute(): void {
-    // Rute ini akan dilindungi oleh authMiddleware.verifyToken
     this.route.get(
       "/me",
       this.authMiddleware.verifyToken,
@@ -30,7 +29,6 @@ class UserRouter {
       this.userController.updateMyProfile
     );
 
-    // POST /users/me/password - Change password
     this.route.post(
       "/me/password",
       this.authMiddleware.verifyToken,

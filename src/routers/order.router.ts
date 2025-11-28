@@ -16,27 +16,22 @@ class OrderRouter {
   }
 
   private initializeRoute(): void {
-    // Lindungi semua rute order, hanya user terotentikasi yang bisa akses
     this.route.use(this.authMiddleware.verifyToken);
 
-    // POST /orders - Membuat pesanan baru
     this.route.post(
       "/",
       createOrderValidation, // Terapkan validasi
       this.orderController.createOrder
     );
 
-    // GET /orders - Mendapatkan riwayat pesanan user
     this.route.get("/", this.orderController.getMyOrders);
 
-    // GET /orders/store-orders - (Seller) Mendapatkan pesanan masuk toko
     this.route.get(
       "/store-orders",
       this.authMiddleware.isSeller,
       this.orderController.getStoreOrders
     );
 
-    // PATCH /orders/:id/status - (Seller) Update status pesanan
     this.route.patch(
       "/:id/status",
       this.authMiddleware.isSeller,

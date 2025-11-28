@@ -70,7 +70,6 @@ class StoreController {
         throw new AppError("Authentication failed", 401);
       }
 
-      // First get the store ID for this user
       const store = await this.storeService.getMyStore(req.user.id);
       if (!store) {
         throw new AppError("Store not found", 404);

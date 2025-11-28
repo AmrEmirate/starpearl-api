@@ -4,8 +4,6 @@ import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { Cart, CartItem, Product } from "../generated/prisma";
 
-// Tipe data untuk cart yang dikembalikan ke frontend
-// (termasuk item produk yang sudah di-populate)
 type FullCart = (Cart & {
   items: (CartItem & {
     product: Pick<Product, "id" | "name" | "imageUrls" | "stock" | "price"> & {
@@ -26,7 +24,6 @@ export class CartService {
    * Logika untuk mendapatkan keranjang, atau membuatnya jika tidak ada.
    */
   private async getOrCreateCart(userId: string): Promise<Cart> {
-    // Gunakan findCartByUserId (yang memanggil findUnique)
     let cart = await this.cartRepository.findCartByUserId(userId);
     if (!cart) {
       logger.info(`No active cart found for user ${userId}, creating new one.`);
@@ -41,7 +38,6 @@ export class CartService {
   public async addItemToCart(userId: string, productId: string, quantity: number) {
     logger.info(`Attempting to add ${quantity} of product ${productId} for user ${userId}`);
 
-    // 1. Cek produk dan stoknya
     const product = await prisma.product.findUnique({
       where: { id: productId, isActive: true, store: { status: "APPROVED" } },
     });
@@ -53,10 +49,8 @@ export class CartService {
       throw new AppError(`Not enough stock. Available: ${product.stock}`, 400);
     }
 
-    // 2. Dapatkan keranjang user (atau buat baru)
     const cart = await this.getOrCreateCart(userId);
 
-    // 3. Cek apakah item sudah ada di keranjang
     const existingItem = await this.cartRepository.findCartItem(cart.id, productId);
 
     let updatedItem: CartItem;
@@ -69,7 +63,6 @@ export class CartService {
       updatedItem = await this.cartRepository.updateCartItemQuantity(existingItem.id, newQuantity);
     } else {
       logger.info(`Product ${productId} not in cart, creating new cart item.`);
-      // Panggil 'addCartItem' tanpa 'price'
       updatedItem = await this.cartRepository.addCartItem(cart.id, productId, quantity);
     }
 
@@ -92,12 +85,9 @@ export class CartService {
       };
     }
 
-    // Ambil data keranjang lengkap
     const fullCart = await this.cartRepository.getFullCart(cart.id) as FullCart; // Cast ke tipe baru
 
-    // Hitung total harga dari product.price
     const total = fullCart?.items.reduce((sum, item) => {
-      // Pastikan produk masih ada (meskipun seharusnya ada jika di keranjang)
       if (item.product) {
         return sum + (Number(item.product.price) * item.quantity); // Konversi Decimal ke number
       }
@@ -113,19 +103,16 @@ export class CartService {
   public async updateItemQuantity(userId: string, itemId: string, newQuantity: number) {
     logger.info(`Attempting to update item ${itemId} to quantity ${newQuantity} for user ${userId}`);
 
-    // 1. Validasi kuantitas
     if (newQuantity <= 0) {
       logger.info(`Quantity is ${newQuantity}, deleting item ${itemId}`);
       return this.deleteItem(userId, itemId); // Jika 0 atau kurang, hapus item
     }
 
-    // 2. Verifikasi bahwa item itu ada dan milik user
     const item = await this.cartRepository.findCartItemByIdAndUserId(itemId, userId);
     if (!item) {
       throw new AppError("Cart item not found or does not belong to user", 404);
     }
 
-    // 3. Cek stok produk
     const product = await prisma.product.findUnique({
       where: { id: item.productId },
     });
@@ -136,7 +123,6 @@ export class CartService {
       throw new AppError(`Not enough stock. Available: ${product.stock}`, 400);
     }
 
-    // 4. Update kuantitas
     const updatedItem = await this.cartRepository.updateCartItemQuantity(itemId, newQuantity);
     return updatedItem;
   }
@@ -147,13 +133,11 @@ export class CartService {
   public async deleteItem(userId: string, itemId: string) {
     logger.info(`Attempting to delete item ${itemId} for user ${userId}`);
 
-    // 1. Verifikasi bahwa item itu ada dan milik user
     const item = await this.cartRepository.findCartItemByIdAndUserId(itemId, userId);
     if (!item) {
       throw new AppError("Cart item not found or does not belong to user", 404);
     }
 
-    // 2. Hapus item
     const deletedItem = await this.cartRepository.deleteCartItem(itemId);
     return deletedItem;
   }

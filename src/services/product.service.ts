@@ -29,7 +29,6 @@ export class ProductService {
   ): Promise<Product> {
     logger.info(`Creating product for user: ${userId}`);
 
-    // 1. Cek apakah user punya toko
     const store = await this.storeRepository.findStoreByUserId(userId);
     if (!store) {
       throw new AppError("User does not have a store", 400);
@@ -39,13 +38,11 @@ export class ProductService {
       throw new AppError("Store is not approved yet", 403);
     }
 
-    // 2. Find or create category
     let categoryRecord = await prisma.category.findUnique({
       where: { name: data.category },
     });
 
     if (!categoryRecord) {
-      // Create slug from name (simple version)
       const slug = data.category.toLowerCase().replace(/ /g, "-");
       categoryRecord = await prisma.category.create({
         data: {
@@ -55,7 +52,6 @@ export class ProductService {
       });
     }
 
-    // 3. Buat produk
     return this.productRepository.createProduct({
       name: data.name,
       description: data.description,
@@ -77,7 +73,6 @@ export class ProductService {
     const filters: Prisma.ProductWhereInput = {};
 
     if (queryParams) {
-      // Filter by Name (Search)
       if (queryParams.q) {
         filters.name = {
           contains: queryParams.q,
@@ -85,7 +80,6 @@ export class ProductService {
         };
       }
 
-      // Filter by Category
       if (queryParams.category) {
         filters.category = {
           name: {
@@ -95,7 +89,6 @@ export class ProductService {
         };
       }
 
-      // Filter by Price Range
       if (
         queryParams.minPrice !== undefined ||
         queryParams.maxPrice !== undefined
@@ -134,7 +127,6 @@ export class ProductService {
     productId: string,
     data: Partial<Product>
   ): Promise<Product> {
-    // 1. Cek kepemilikan
     const product = await this.productRepository.findProductById(productId);
     if (!product) throw new AppError("Product not found", 404);
 
@@ -143,7 +135,6 @@ export class ProductService {
       throw new AppError("You do not own this product", 403);
     }
 
-    // 2. Konversi harga jika ada
     const updateData: any = { ...data };
     if (data.price) {
       updateData.price = new Decimal(data.price);
@@ -156,7 +147,6 @@ export class ProductService {
     userId: string,
     productId: string
   ): Promise<Product> {
-    // 1. Cek kepemilikan
     const product = await this.productRepository.findProductById(productId);
     if (!product) throw new AppError("Product not found", 404);
 

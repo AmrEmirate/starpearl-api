@@ -1,4 +1,3 @@
-// @ts-ignore - midtrans-client doesn't have TypeScript definitions
 import midtransClient from "midtrans-client";
 import { Order } from "../generated/prisma";
 import AppError from "../utils/AppError";
@@ -36,9 +35,6 @@ export class PaymentService {
           first_name: "Customer", // In real app, fetch from User
           email: "customer@example.com", // In real app, fetch from User
         },
-        // callbacks: {
-        //   finish: `${process.env.FRONTEND_URL}/orders`,
-        // }
       };
 
       const transaction = await this.snap.createTransaction(parameter);

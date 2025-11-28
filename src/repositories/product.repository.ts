@@ -2,7 +2,6 @@ import { prisma } from "../config/prisma";
 import { Product, Prisma } from "../generated/prisma";
 import logger from "../utils/logger";
 
-// Tipe data untuk input produk, tanpa id, createdAt, updatedAt
 type CreateProductInput = Omit<Product, "id" | "createdAt" | "updatedAt">;
 
 export class ProductRepository {
@@ -17,7 +16,6 @@ export class ProductRepository {
     }
   }
 
-  // Update: Menerima parameter filter
   async findProducts(filters?: Prisma.ProductWhereInput): Promise<Product[]> {
     try {
       const where: Prisma.ProductWhereInput = {
@@ -59,13 +57,11 @@ export class ProductRepository {
         },
         include: {
           store: {
-            // Sertakan info toko
             select: {
               id: true,
               name: true,
             },
           },
-          // Nanti kita bisa tambahkan 'reviews' di sini
         },
       });
     } catch (error) {
@@ -78,7 +74,6 @@ export class ProductRepository {
       return await prisma.product.findMany({
         where: {
           storeId: storeId,
-          // We might want to show inactive products to the seller too
         },
         orderBy: {
           createdAt: "desc",
@@ -103,7 +98,6 @@ export class ProductRepository {
 
   async deleteProduct(id: string): Promise<Product> {
     try {
-      // Soft delete: set isActive to false
       return await prisma.product.update({
         where: { id },
         data: { isActive: false },

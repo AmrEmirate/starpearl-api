@@ -104,7 +104,6 @@ export class AdminService {
         },
       });
 
-      // If rejected, refund the balance to the store
       if (status === "REJECTED") {
         await tx.store.update({
           where: { id: withdrawal.storeId },

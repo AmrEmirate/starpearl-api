@@ -66,7 +66,6 @@ class ProductController {
     next: NextFunction
   ) => {
     try {
-      // Ekstrak query params
       const { q, category, minPrice, maxPrice } = req.query;
 
       const queryParams = {

@@ -15,14 +15,12 @@ class CommunityRouter {
   }
 
   private initializeRoute(): void {
-    // Public route to view posts (with optional auth for like status)
     this.route.get(
       "/",
       this.authMiddleware.extractUser,
       this.controller.getPosts
     );
 
-    // Protected routes
     this.route.use(this.authMiddleware.verifyToken);
 
     this.route.post("/", this.controller.createPost);

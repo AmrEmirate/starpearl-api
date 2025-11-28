@@ -12,7 +12,6 @@ class PaymentRouter {
   }
 
   private initializeRoute(): void {
-    // Webhook endpoint for Midtrans
     this.route.post("/webhook", this.controller.handleWebhook);
   }
 
