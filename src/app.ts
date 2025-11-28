@@ -12,6 +12,15 @@ import AddressRouter from "./routers/address.router";
 import OrderRouter from "./routers/order.router";
 import AdminRouter from "./routers/admin.router";
 import CommunityRouter from "./routers/community.router";
+import StoreRouter from "./routers/store.router";
+import CheckoutRouter from "./routers/checkout.router";
+import WishlistRouter from "./routers/wishlist.router";
+import PaymentRouter from "./routers/payment.router";
+import ReviewRouter from "./routers/review.router";
+import WithdrawalRouter from "./routers/withdrawal.router";
+import ChatRouter from "./routers/chat.router";
+
+import VoucherRouter from "./routers/voucher.router";
 
 const PORT: string = process.env.PORT || "2020";
 
@@ -62,6 +71,30 @@ class App {
 
     const communityRouter: CommunityRouter = new CommunityRouter();
     this.app.use("/community", communityRouter.getRouter());
+
+    const storeRouter: StoreRouter = new StoreRouter();
+    this.app.use("/stores", storeRouter.getRouter());
+
+    const checkoutRouter: CheckoutRouter = new CheckoutRouter();
+    this.app.use("/checkout", checkoutRouter.getRouter());
+
+    const wishlistRouter: WishlistRouter = new WishlistRouter();
+    this.app.use("/wishlist", wishlistRouter.getRouter());
+
+    const paymentRouter: PaymentRouter = new PaymentRouter();
+    this.app.use("/payment", paymentRouter.getRouter());
+
+    const reviewRouter: ReviewRouter = new ReviewRouter();
+    this.app.use("/reviews", reviewRouter.getRouter());
+
+    const withdrawalRouter: WithdrawalRouter = new WithdrawalRouter();
+    this.app.use("/withdrawals", withdrawalRouter.getRouter());
+
+    const chatRouter: ChatRouter = new ChatRouter();
+    this.app.use("/chats", chatRouter.getRouter());
+
+    const voucherRouter: VoucherRouter = new VoucherRouter();
+    this.app.use("/vouchers", voucherRouter.getRouter());
   }
 
   private errorHandler(): void {
@@ -84,10 +117,10 @@ class App {
           });
           return;
         }
-        
+
         res.status(error.code || 500).send({
           isSuccess: false,
-          message: error.message || "Internal Server Error"
+          message: error.message || "Internal Server Error",
         });
       }
     );

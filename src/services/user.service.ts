@@ -2,6 +2,7 @@ import { User } from "../generated/prisma";
 import { UserRepository } from "../repositories/user.repository";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
+import * as bcrypt from "bcrypt";
 
 export class UserService {
   private userRepository: UserRepository;
@@ -24,7 +25,7 @@ export class UserService {
 
   public async updateUserProfile(userId: string, data: { name?: string }) {
     logger.info(`Updating profile for user: ${userId}`);
-    
+
     // Kita hanya akan proses data yang diizinkan (contoh: name)
     const updateData: Partial<Pick<User, "name">> = {};
     if (data.name) {
@@ -35,9 +36,42 @@ export class UserService {
       throw new AppError("No valid fields to update", 400);
     }
 
-    const updatedUser = await this.userRepository.updateUser(userId, updateData);
-    
+    const updatedUser = await this.userRepository.updateUser(
+      userId,
+      updateData
+    );
+
     const { passwordHash, ...userWithoutPassword } = updatedUser;
     return userWithoutPassword;
+  }
+
+  public async changePassword(
+    userId: string,
+    data: { oldPassword: string; newPassword: string }
+  ) {
+    logger.info(`Changing password for user: ${userId}`);
+    const user = await this.userRepository.findUserById(userId);
+
+    if (!user) {
+      throw new AppError("User not found", 404);
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      data.oldPassword,
+      user.passwordHash
+    );
+
+    if (!isPasswordValid) {
+      throw new AppError("Invalid old password", 400);
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const newPasswordHash = await bcrypt.hash(data.newPassword, salt);
+
+    await this.userRepository.updateUser(userId, {
+      passwordHash: newPasswordHash,
+    });
+
+    return { message: "Password updated successfully" };
   }
 }

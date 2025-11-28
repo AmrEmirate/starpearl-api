@@ -26,7 +26,22 @@ class OrderRouter {
       this.orderController.createOrder
     );
 
-    // (Rute lain seperti GET /orders akan ditambahkan di sini)
+    // GET /orders - Mendapatkan riwayat pesanan user
+    this.route.get("/", this.orderController.getMyOrders);
+
+    // GET /orders/store-orders - (Seller) Mendapatkan pesanan masuk toko
+    this.route.get(
+      "/store-orders",
+      this.authMiddleware.isSeller,
+      this.orderController.getStoreOrders
+    );
+
+    // PATCH /orders/:id/status - (Seller) Update status pesanan
+    this.route.patch(
+      "/:id/status",
+      this.authMiddleware.isSeller,
+      this.orderController.updateOrderStatus
+    );
   }
 
   public getRouter(): Router {

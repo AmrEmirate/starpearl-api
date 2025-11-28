@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Product } from "../generated/prisma";
+import { Product, Prisma } from "../generated/prisma";
 import logger from "../utils/logger";
 
 // Tipe data untuk input produk, tanpa id, createdAt, updatedAt
@@ -17,21 +17,28 @@ export class ProductRepository {
     }
   }
 
-  async findProducts(): Promise<Product[]> {
+  // Update: Menerima parameter filter
+  async findProducts(filters?: Prisma.ProductWhereInput): Promise<Product[]> {
     try {
-      return await prisma.product.findMany({
-        where: {
-          isActive: true, // Hanya tampilkan produk yang aktif
-          store: {
-            status: "APPROVED", // Hanya dari toko yang sudah diapprove
-          },
+      const where: Prisma.ProductWhereInput = {
+        isActive: true,
+        store: {
+          status: "APPROVED",
         },
+        ...filters, // Gabungkan dengan filter tambahan
+      };
+
+      return await prisma.product.findMany({
+        where,
         include: {
-          store: { // Sertakan info toko
+          store: {
             select: {
               name: true,
             },
           },
+        },
+        orderBy: {
+          createdAt: "desc",
         },
       });
     } catch (error) {
@@ -51,7 +58,8 @@ export class ProductRepository {
           },
         },
         include: {
-          store: { // Sertakan info toko
+          store: {
+            // Sertakan info toko
             select: {
               id: true,
               name: true,
@@ -65,8 +73,44 @@ export class ProductRepository {
       throw new Error("Database query failed while finding product by id");
     }
   }
+  async findProductsByStoreId(storeId: string): Promise<Product[]> {
+    try {
+      return await prisma.product.findMany({
+        where: {
+          storeId: storeId,
+          // We might want to show inactive products to the seller too
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } catch (error) {
+      logger.error(`Error finding products for store: ${storeId}`, error);
+      throw new Error("Database query failed while finding store products");
+    }
+  }
+  async updateProduct(id: string, data: Partial<Product>): Promise<Product> {
+    try {
+      return await prisma.product.update({
+        where: { id },
+        data,
+      });
+    } catch (error) {
+      logger.error(`Error updating product: ${id}`, error);
+      throw new Error("Database query failed while updating product");
+    }
+  }
+
+  async deleteProduct(id: string): Promise<Product> {
+    try {
+      // Soft delete: set isActive to false
+      return await prisma.product.update({
+        where: { id },
+        data: { isActive: false },
+      });
+    } catch (error) {
+      logger.error(`Error deleting product: ${id}`, error);
+      throw new Error("Database query failed while deleting product");
+    }
+  }
 }
-
-  // Fungsi lain terkait produk (get, update, delete) akan ditambahkan di sini nanti
-
-

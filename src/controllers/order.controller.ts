@@ -22,7 +22,7 @@ class OrderController {
       }
 
       const result = await this.orderService.createOrder(req.user.id, req.body);
-      
+
       res.status(201).send({
         success: true,
         message: "Order created successfully",
@@ -34,7 +34,86 @@ class OrderController {
     }
   };
 
-  // Handler lain (getOrders, getOrderDetails) akan ditambahkan di sini
+  public getMyOrders = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) {
+        throw new AppError("Authentication failed", 401);
+      }
+
+      const result = await this.orderService.getMyOrders(req.user.id);
+
+      res.status(200).send({
+        success: true,
+        message: "Orders retrieved successfully",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in getMyOrders controller", error);
+      next(error);
+    }
+  };
+
+  public getStoreOrders = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) {
+        throw new AppError("Authentication failed", 401);
+      }
+
+      const result = await this.orderService.getStoreOrders(req.user.id);
+
+      res.status(200).send({
+        success: true,
+        message: "Store orders retrieved successfully",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in getStoreOrders controller", error);
+      next(error);
+    }
+  };
+
+  public updateOrderStatus = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) {
+        throw new AppError("Authentication failed", 401);
+      }
+
+      const { id } = req.params;
+      const { status, shippingResi } = req.body;
+
+      if (!status) {
+        throw new AppError("Status is required", 400);
+      }
+
+      const result = await this.orderService.updateOrderStatus(
+        req.user.id,
+        id,
+        status,
+        shippingResi
+      );
+
+      res.status(200).send({
+        success: true,
+        message: "Order status updated successfully",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in updateOrderStatus controller", error);
+      next(error);
+    }
+  };
 }
 
 export default OrderController;

@@ -26,7 +26,7 @@ export class AuthMiddleware {
 
     try {
       const decoded = verify(token, secret) as { id: string; role: string };
-      
+
       const user = await prisma.user.findUnique({ where: { id: decoded.id } });
       if (!user) {
         return next(new AppError("User not found", 404));
@@ -36,6 +36,28 @@ export class AuthMiddleware {
       next();
     } catch (err) {
       return next(new AppError("Invalid token", 401));
+    }
+  }
+
+  async extractUser(req: RequestWithUser, res: Response, next: NextFunction) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+      return next();
+    }
+
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      return next();
+    }
+
+    try {
+      const decoded = verify(token, secret) as { id: string; role: string };
+      req.user = decoded;
+      next();
+    } catch (err) {
+      next();
     }
   }
 

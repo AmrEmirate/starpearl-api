@@ -1,78 +1,170 @@
-import { Decimal } from "@prisma/client/runtime/library";
+import { prisma } from "../config/prisma";
 import { Product } from "../generated/prisma";
 import { ProductRepository } from "../repositories/product.repository";
-import AppError from "../utils/AppError";
+import { StoreRepository } from "../repositories/store.repository";
 import logger from "../utils/logger";
-import { prisma } from "../config/prisma"; // Import prisma untuk cek store
-
-// Tipe data input dari controller
-type ProductInputData = {
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  categoryId: string;
-  imageUrls?: string[];
-};
+import AppError from "../utils/AppError";
+import { Decimal } from "@prisma/client/runtime/library";
+import { Prisma } from "../generated/prisma";
 
 export class ProductService {
   private productRepository: ProductRepository;
+  private storeRepository: StoreRepository;
 
   constructor() {
     this.productRepository = new ProductRepository();
+    this.storeRepository = new StoreRepository();
   }
 
-  public async addProduct(userId: string, data: ProductInputData): Promise<Product> {
-    logger.info(`Adding product '${data.name}' for user: ${userId}`);
+  public async createProduct(
+    userId: string,
+    data: {
+      name: string;
+      description: string;
+      price: number;
+      stock: number;
+      category: string;
+      imageUrls: string[];
+    }
+  ): Promise<Product> {
+    logger.info(`Creating product for user: ${userId}`);
 
-    // 1. Dapatkan storeId berdasarkan userId
-    const store = await prisma.store.findUnique({
-      where: { userId: userId },
-      select: { id: true, status: true }, // Hanya ambil id dan status
+    // 1. Cek apakah user punya toko
+    const store = await this.storeRepository.findStoreByUserId(userId);
+    if (!store) {
+      throw new AppError("User does not have a store", 400);
+    }
+
+    if (store.status !== "APPROVED") {
+      throw new AppError("Store is not approved yet", 403);
+    }
+
+    // 2. Find or create category
+    let categoryRecord = await prisma.category.findUnique({
+      where: { name: data.category },
     });
 
-    if (!store) {
-      throw new AppError("Seller store not found for this user", 404);
-    }
-    
-    // Pastikan toko sudah diapprove
-    if (store.status !== "APPROVED") {
-        throw new AppError("Your store is not approved to add products", 403);
+    if (!categoryRecord) {
+      // Create slug from name (simple version)
+      const slug = data.category.toLowerCase().replace(/ /g, "-");
+      categoryRecord = await prisma.category.create({
+        data: {
+          name: data.category,
+          slug: slug,
+        },
+      });
     }
 
-    // 2. Siapkan data produk untuk repository
-    const productData = {
-      ...data,
-      storeId: store.id,
-      price: new Decimal(data.price), // Konversi ke Decimal
+    // 3. Buat produk
+    return this.productRepository.createProduct({
+      name: data.name,
+      description: data.description,
       stock: data.stock,
-      imageUrls: data.imageUrls || [], // Default ke array kosong jika tidak ada
-      isActive: true, // Produk baru otomatis aktif
-    };
-
-    // 3. Panggil repository untuk membuat produk
-    const newProduct = await this.productRepository.createProduct(productData);
-
-    logger.info(`Product '${newProduct.name}' (ID: ${newProduct.id}) created successfully for store: ${store.id}`);
-    return newProduct;
+      imageUrls: data.imageUrls,
+      storeId: store.id,
+      isActive: true,
+      price: new Decimal(data.price),
+      categoryId: categoryRecord.id,
+    });
   }
 
-  public async getProducts() {
-    logger.info("Fetching all active products");
-    const products = await this.productRepository.findProducts();
-    return products;
-  }
+  public async getAllProducts(queryParams?: {
+    q?: string;
+    category?: string;
+    minPrice?: number;
+    maxPrice?: number;
+  }): Promise<Product[]> {
+    const filters: Prisma.ProductWhereInput = {};
 
-  public async getProductById(productId: string) {
-    logger.info(`Fetching product details for: ${productId}`);
-    const product = await this.productRepository.findProductById(productId);
+    if (queryParams) {
+      // Filter by Name (Search)
+      if (queryParams.q) {
+        filters.name = {
+          contains: queryParams.q,
+          mode: "insensitive", // Case insensitive
+        };
+      }
 
-    if (!product) {
-      throw new AppError("Product not found or is inactive", 404);
+      // Filter by Category
+      if (queryParams.category) {
+        filters.category = {
+          name: {
+            equals: queryParams.category,
+            mode: "insensitive",
+          },
+        };
+      }
+
+      // Filter by Price Range
+      if (
+        queryParams.minPrice !== undefined ||
+        queryParams.maxPrice !== undefined
+      ) {
+        filters.price = {};
+        if (queryParams.minPrice !== undefined) {
+          filters.price.gte = new Decimal(queryParams.minPrice);
+        }
+        if (queryParams.maxPrice !== undefined) {
+          filters.price.lte = new Decimal(queryParams.maxPrice);
+        }
+      }
     }
-    
+
+    return this.productRepository.findProducts(filters);
+  }
+
+  public async getStoreProducts(userId: string): Promise<Product[]> {
+    const store = await this.storeRepository.findStoreByUserId(userId);
+    if (!store) {
+      throw new AppError("Store not found", 404);
+    }
+    return this.productRepository.findProductsByStoreId(store.id);
+  }
+
+  public async getProductById(id: string): Promise<Product> {
+    const product = await this.productRepository.findProductById(id);
+    if (!product) {
+      throw new AppError("Product not found", 404);
+    }
     return product;
   }
-}
 
-  // Fungsi service lain (getProduct, updateProduct, deleteProduct) akan ditambahkan di sini
+  public async updateProduct(
+    userId: string,
+    productId: string,
+    data: Partial<Product>
+  ): Promise<Product> {
+    // 1. Cek kepemilikan
+    const product = await this.productRepository.findProductById(productId);
+    if (!product) throw new AppError("Product not found", 404);
+
+    const store = await this.storeRepository.findStoreByUserId(userId);
+    if (!store || store.id !== product.storeId) {
+      throw new AppError("You do not own this product", 403);
+    }
+
+    // 2. Konversi harga jika ada
+    const updateData: any = { ...data };
+    if (data.price) {
+      updateData.price = new Decimal(data.price);
+    }
+
+    return this.productRepository.updateProduct(productId, updateData);
+  }
+
+  public async deleteProduct(
+    userId: string,
+    productId: string
+  ): Promise<Product> {
+    // 1. Cek kepemilikan
+    const product = await this.productRepository.findProductById(productId);
+    if (!product) throw new AppError("Product not found", 404);
+
+    const store = await this.storeRepository.findStoreByUserId(userId);
+    if (!store || store.id !== product.storeId) {
+      throw new AppError("You do not own this product", 403);
+    }
+
+    return this.productRepository.deleteProduct(productId);
+  }
+}

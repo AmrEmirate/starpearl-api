@@ -54,3 +54,19 @@
 2025-10-30 18:57:40 [INFO]: Fetching all active products
 2025-10-30 18:57:40 [INFO]: GET /products
 2025-10-30 18:57:40 [INFO]: Fetching all active products
+2025-11-28 11:28:13 [INFO]: POST /auth/register/seller
+2025-11-28 11:28:13 [INFO]: Registering seller: newseller3@example.com
+2025-11-28 11:31:42 [INFO]: POST /auth/register/seller
+2025-11-28 11:31:42 [INFO]: Registering seller: approved2@example.com
+2025-11-28 11:33:43 [INFO]: POST /auth/register/seller
+2025-11-28 11:33:43 [INFO]: Registering seller: approved4@example.com
+2025-11-28 12:49:02 [INFO]: GET /products
+2025-11-28 12:49:02 [INFO]: Fetching all active products
+2025-11-28 12:50:02 [INFO]: GET /products
+2025-11-28 12:50:02 [INFO]: Fetching all active products
+2025-11-28 12:50:31 [INFO]: GET /products/cmiigx83u000008l09k9g3q4a
+2025-11-28 12:50:31 [INFO]: Fetching product details for: cmiigx83u000008l09k9g3q4a
+2025-11-28 12:50:38 [INFO]: GET /products
+2025-11-28 12:50:38 [INFO]: Fetching all active products
+2025-11-28 12:50:38 [INFO]: GET /products
+2025-11-28 12:50:38 [INFO]: Fetching all active products

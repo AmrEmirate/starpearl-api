@@ -3,35 +3,52 @@ import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
 export class CommunityService {
-  
-  public async getAllPosts(page: number = 1, limit: number = 10) {
+  public async getAllPosts(
+    page: number = 1,
+    limit: number = 10,
+    userId?: string
+  ) {
     const skip = (page - 1) * limit;
-    
+
     const posts = await prisma.communityPost.findMany({
       skip,
       take: limit,
       where: { status: "APPROVED" }, // Only show approved posts
       include: {
         user: {
-          select: { id: true, name: true, avatarUrl: true, role: true }
+          select: { id: true, name: true, avatarUrl: true, role: true },
         },
         _count: {
-          select: { likes: true, comments: true }
-        }
+          select: { likes: true, comments: true },
+        },
+        likes: userId
+          ? {
+              where: { userId: userId },
+              select: { userId: true },
+            }
+          : false,
       },
-      orderBy: { createdAt: "desc" }
+      orderBy: { createdAt: "desc" },
     });
 
-    const total = await prisma.communityPost.count({ where: { status: "APPROVED" } });
+    const total = await prisma.communityPost.count({
+      where: { status: "APPROVED" },
+    });
+
+    const postsWithLikeStatus = posts.map((post) => ({
+      ...post,
+      isLiked: post.likes ? post.likes.length > 0 : false,
+      likes: undefined, // Remove the likes array from response
+    }));
 
     return {
-      posts,
+      posts: postsWithLikeStatus,
       meta: {
         total,
         page,
         limit,
-        totalPages: Math.ceil(total / limit)
-      }
+        totalPages: Math.ceil(total / limit),
+      },
     };
   }
 
@@ -45,8 +62,8 @@ export class CommunityService {
         userId,
         content,
         imageUrl,
-        status: "PENDING" // Default to pending for moderation
-      }
+        status: "PENDING", // Default to pending for moderation
+      },
     });
   }
 
@@ -55,15 +72,15 @@ export class CommunityService {
       where: {
         postId_userId: {
           postId,
-          userId
-        }
-      }
+          userId,
+        },
+      },
     });
 
     if (existingLike) {
       // Unlike
       await prisma.communityPostLike.delete({
-        where: { id: existingLike.id }
+        where: { id: existingLike.id },
       });
       return { liked: false };
     } else {
@@ -71,8 +88,8 @@ export class CommunityService {
       await prisma.communityPostLike.create({
         data: {
           postId,
-          userId
-        }
+          userId,
+        },
       });
       return { liked: true };
     }
@@ -85,13 +102,13 @@ export class CommunityService {
       data: {
         postId,
         userId,
-        content
+        content,
       },
       include: {
         user: {
-          select: { id: true, name: true, avatarUrl: true }
-        }
-      }
+          select: { id: true, name: true, avatarUrl: true },
+        },
+      },
     });
   }
 }

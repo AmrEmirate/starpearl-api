@@ -1,9 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { AdminService } from "../services/admin.service";
-import logger from "../utils/logger";
 import { RequestWithUser } from "../middleware/auth.middleware";
 import AppError from "../utils/AppError";
-import { StoreStatus } from "../generated/prisma";
 
 class AdminController {
   private adminService: AdminService;
@@ -12,40 +10,81 @@ class AdminController {
     this.adminService = new AdminService();
   }
 
-  public getAllSellers = async (
+  public getStats = async (
     req: RequestWithUser,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const result = await this.adminService.getAllSellers();
-      res.status(200).send({
-        success: true,
-        data: result,
-      });
+      const stats = await this.adminService.getDashboardStats();
+      res.status(200).json({ success: true, data: stats });
     } catch (error) {
-      logger.error("Error in getAllSellers controller", error);
       next(error);
     }
   };
 
-  public updateSellerStatus = async (
+  public getPendingStores = async (
     req: RequestWithUser,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const { storeId } = req.params;
-      const { status } = req.body as { status: StoreStatus };
-
-      const result = await this.adminService.updateSellerStatus(storeId, status);
-      res.status(200).send({
-        success: true,
-        message: "Store status updated successfully",
-        data: result,
-      });
+      const stores = await this.adminService.getPendingStores();
+      res.status(200).json({ success: true, data: stores });
     } catch (error) {
-      logger.error("Error in updateSellerStatus controller", error);
+      next(error);
+    }
+  };
+
+  public verifyStore = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+
+      if (!["APPROVED", "REJECTED"].includes(status)) {
+        throw new AppError("Invalid status", 400);
+      }
+
+      const store = await this.adminService.verifyStore(id, status);
+      res.status(200).json({ success: true, data: store });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getPendingWithdrawals = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const withdrawals = await this.adminService.getPendingWithdrawals();
+      res.status(200).json({ success: true, data: withdrawals });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public processWithdrawal = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+
+      if (!["APPROVED", "REJECTED"].includes(status)) {
+        throw new AppError("Invalid status", 400);
+      }
+
+      const withdrawal = await this.adminService.processWithdrawal(id, status);
+      res.status(200).json({ success: true, data: withdrawal });
+    } catch (error) {
       next(error);
     }
   };

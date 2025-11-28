@@ -15,7 +15,9 @@ export class AuthRepository {
     }
   }
 
-  async createUser(data: Omit<User, "id" | "createdAt" | "updatedAt" | "avatarUrl">): Promise<User> {
+  async createUser(
+    data: Omit<User, "id" | "createdAt" | "updatedAt" | "avatarUrl">
+  ): Promise<User> {
     try {
       return await prisma.user.create({
         data,
@@ -48,7 +50,10 @@ export class AuthRepository {
       });
     } catch (error) {
       logger.error(`Error creating seller: ${userData.email}`, error);
-      if ((error as any).code === 'P2002' && (error as any).meta?.target?.includes('name')) {
+      if (
+        (error as any).code === "P2002" &&
+        (error as any).meta?.target?.includes("name")
+      ) {
         throw new AppError("Store name already exists", 400);
       }
       throw new Error("Database transaction failed");

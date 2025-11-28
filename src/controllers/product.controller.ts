@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ProductService } from "../services/product.service";
 import logger from "../utils/logger";
-import { RequestWithUser } from "../middleware/auth.middleware"; // Import tipe RequestWithUser
+import { RequestWithUser } from "../middleware/auth.middleware";
 import AppError from "../utils/AppError";
 
 class ProductController {
@@ -12,28 +12,50 @@ class ProductController {
   }
 
   public createProduct = async (
-    req: RequestWithUser, // Gunakan RequestWithUser
+    req: RequestWithUser,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      // Pastikan user ada di request (dari AuthMiddleware)
-      if (!req.user || !req.user.id) {
+      if (!req.user) {
         throw new AppError("Authentication failed", 401);
       }
 
-      const userId = req.user.id;
-      const productData = req.body;
-
-      const result = await this.productService.addProduct(userId, productData);
+      const result = await this.productService.createProduct(
+        req.user.id,
+        req.body
+      );
 
       res.status(201).send({
         success: true,
-        message: "Product added successfully",
+        message: "Product created successfully",
         data: result,
       });
     } catch (error) {
       logger.error("Error in createProduct controller", error);
+      next(error);
+    }
+  };
+
+  public getMyProducts = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) {
+        throw new AppError("Authentication failed", 401);
+      }
+
+      const result = await this.productService.getStoreProducts(req.user.id);
+
+      res.status(200).send({
+        success: true,
+        message: "Store products retrieved successfully",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in getMyProducts controller", error);
       next(error);
     }
   };
@@ -44,9 +66,21 @@ class ProductController {
     next: NextFunction
   ) => {
     try {
-      const result = await this.productService.getProducts();
+      // Ekstrak query params
+      const { q, category, minPrice, maxPrice } = req.query;
+
+      const queryParams = {
+        q: q as string,
+        category: category as string,
+        minPrice: minPrice ? Number(minPrice) : undefined,
+        maxPrice: maxPrice ? Number(maxPrice) : undefined,
+      };
+
+      const result = await this.productService.getAllProducts(queryParams);
+
       res.status(200).send({
         success: true,
+        message: "Products retrieved successfully",
         data: result,
       });
     } catch (error) {
@@ -62,13 +96,11 @@ class ProductController {
   ) => {
     try {
       const { id } = req.params;
-      if (!id) {
-        throw new AppError("Product ID is required", 400);
-      }
-
       const result = await this.productService.getProductById(id);
+
       res.status(200).send({
         success: true,
+        message: "Product retrieved successfully",
         data: result,
       });
     } catch (error) {
@@ -77,7 +109,57 @@ class ProductController {
     }
   };
 
-  // Handler lain (getProduct, updateProduct, deleteProduct) akan ditambahkan di sini
+  public updateProduct = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) {
+        throw new AppError("Authentication failed", 401);
+      }
+
+      const { id } = req.params;
+      const result = await this.productService.updateProduct(
+        req.user.id,
+        id,
+        req.body
+      );
+
+      res.status(200).send({
+        success: true,
+        message: "Product updated successfully",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in updateProduct controller", error);
+      next(error);
+    }
+  };
+
+  public deleteProduct = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) {
+        throw new AppError("Authentication failed", 401);
+      }
+
+      const { id } = req.params;
+      const result = await this.productService.deleteProduct(req.user.id, id);
+
+      res.status(200).send({
+        success: true,
+        message: "Product deleted successfully",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in deleteProduct controller", error);
+      next(error);
+    }
+  };
 }
 
 export default ProductController;

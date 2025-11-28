@@ -29,6 +29,13 @@ class UserRouter {
       updateUserValidation,
       this.userController.updateMyProfile
     );
+
+    // POST /users/me/password - Change password
+    this.route.post(
+      "/me/password",
+      this.authMiddleware.verifyToken,
+      this.userController.changePassword
+    );
   }
 
   public getRouter(): Router {

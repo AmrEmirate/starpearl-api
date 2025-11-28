@@ -1,7 +1,6 @@
 import { Router } from "express";
 import AdminController from "../controllers/admin.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
-import { updateStoreStatusValidation } from "../middleware/validation/admin";
 
 class AdminRouter {
   private route: Router;
@@ -12,27 +11,28 @@ class AdminRouter {
     this.route = Router();
     this.adminController = new AdminController();
     this.authMiddleware = new AuthMiddleware();
-    this.initializeRoute();
+    this.initializeRoutes();
   }
 
-  private initializeRoute(): void {
-    // Lindungi SEMUA rute admin
-    this.route.use(
-      this.authMiddleware.verifyToken,
-      this.authMiddleware.isAdmin // Pastikan hanya Admin yang bisa akses
-    );
+  private initializeRoutes(): void {
+    // All routes require ADMIN role
+    this.route.use(this.authMiddleware.verifyToken);
+    this.route.use(this.authMiddleware.isAdmin);
 
-    // GET /admin/sellers - Mengambil semua data toko
+    this.route.get("/stats", this.adminController.getStats);
+
+    // Store Management
+    this.route.get("/stores/pending", this.adminController.getPendingStores);
+    this.route.patch("/stores/:id/verify", this.adminController.verifyStore);
+
+    // Withdrawal Management
     this.route.get(
-      "/sellers",
-      this.adminController.getAllSellers
+      "/withdrawals/pending",
+      this.adminController.getPendingWithdrawals
     );
-
-    // PATCH /admin/sellers/:storeId/status - Update status toko
     this.route.patch(
-      "/sellers/:storeId/status",
-      updateStoreStatusValidation,
-      this.adminController.updateSellerStatus
+      "/withdrawals/:id/process",
+      this.adminController.processWithdrawal
     );
   }
 
