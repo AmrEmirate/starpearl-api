@@ -11,7 +11,7 @@ describe("Authentication", () => {
 
   beforeAll(async () => {
     await prisma.$connect();
-    
+
     const hashedPassword = await hashPassword("TestPassword123");
     testBuyer = await prisma.user.create({
       data: {
@@ -56,7 +56,7 @@ describe("Authentication", () => {
 
   it("Should register a new buyer successfully", async () => {
     const response = await request(appTest)
-      .post("/auth/register/buyer")
+      .post("/api/auth/register/buyer")
       .send({
         email: "newbuyer@example.com",
         name: "New Buyer",
@@ -71,7 +71,7 @@ describe("Authentication", () => {
 
   it("Should register a new seller successfully", async () => {
     const response = await request(appTest)
-      .post("/auth/register/seller")
+      .post("/api/auth/register/seller")
       .send({
         email: "newseller@example.com",
         name: "New Seller",
@@ -83,15 +83,17 @@ describe("Authentication", () => {
     expect(response.body.success).toBeTruthy();
     expect(response.body.data.email).toBe("newseller@example.com");
     expect(response.body.data.role).toBe("SELLER");
-    
-    const store = await prisma.store.findUnique({ where: { name: "New Store" } });
+
+    const store = await prisma.store.findUnique({
+      where: { name: "New Store" },
+    });
     expect(store).not.toBeNull();
     expect(store?.status).toBe("PENDING");
   });
 
   it("Should fail to register with an existing email", async () => {
     const response = await request(appTest)
-      .post("/auth/register/buyer")
+      .post("/api/auth/register/buyer")
       .send({
         email: "testbuyer@example.com",
         name: "Another Buyer",
@@ -103,7 +105,7 @@ describe("Authentication", () => {
   });
 
   it("Should login buyer successfully with correct data", async () => {
-    const response = await request(appTest).post("/auth/login").send({
+    const response = await request(appTest).post("/api/auth/login").send({
       email: "testbuyer@example.com",
       password: "TestPassword123",
     });
@@ -115,7 +117,7 @@ describe("Authentication", () => {
   });
 
   it("Should login seller successfully with correct data", async () => {
-    const response = await request(appTest).post("/auth/login").send({
+    const response = await request(appTest).post("/api/auth/login").send({
       email: "testseller@example.com",
       password: "TestPassword123",
     });
@@ -127,7 +129,7 @@ describe("Authentication", () => {
   });
 
   it("Should fail login with incorrect password", async () => {
-    const response = await request(appTest).post("/auth/login").send({
+    const response = await request(appTest).post("/api/auth/login").send({
       email: "testbuyer@example.com",
       password: "WrongPassword",
     });
@@ -137,7 +139,7 @@ describe("Authentication", () => {
   });
 
   it("Should fail login with non-existent email", async () => {
-    const response = await request(appTest).post("/auth/login").send({
+    const response = await request(appTest).post("/api/auth/login").send({
       email: "no-user@example.com",
       password: "TestPassword123",
     });

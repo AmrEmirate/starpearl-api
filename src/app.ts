@@ -138,6 +138,10 @@ class App {
       console.log(`API Running: http://localhost:${PORT}`);
     });
   }
+
+  public getApp(): Application {
+    return this.app;
+  }
 }
 
 export default App;

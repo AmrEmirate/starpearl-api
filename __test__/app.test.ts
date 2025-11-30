@@ -31,7 +31,7 @@ describe("Connection testing", () => {
     const response = await request(appTest).get("/");
 
     expect(response.status).toBe(200);
-    expect(response.text).toEqual("<h1>Classbase API</h1>");
+    expect(response.text).toEqual("<h1>Starpearl API</h1>");
   });
 
   //   BAD CASE

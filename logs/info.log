@@ -1,153 +1,107 @@
-2025-10-30 18:50:19 [INFO]: GET /products
-2025-10-30 18:50:19 [INFO]: Fetching all active products
-2025-10-30 18:50:19 [INFO]: GET /products
-2025-10-30 18:50:19 [INFO]: Fetching all active products
-2025-10-30 18:50:40 [INFO]: GET /products
-2025-10-30 18:50:40 [INFO]: Fetching all active products
-2025-10-30 18:50:40 [INFO]: GET /products
-2025-10-30 18:50:40 [INFO]: Fetching all active products
-2025-10-30 18:50:57 [INFO]: GET /products
-2025-10-30 18:50:57 [INFO]: Fetching all active products
-2025-10-30 18:50:57 [INFO]: GET /products
-2025-10-30 18:50:57 [INFO]: Fetching all active products
-2025-10-30 18:52:19 [INFO]: POST /auth/login
-2025-10-30 18:52:20 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:22 [INFO]: POST /auth/login
-2025-10-30 18:52:22 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:25 [INFO]: POST /auth/login
-2025-10-30 18:52:25 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:26 [INFO]: POST /auth/login
-2025-10-30 18:52:26 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:27 [INFO]: POST /auth/login
-2025-10-30 18:52:27 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:28 [INFO]: POST /auth/login
-2025-10-30 18:52:28 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:29 [INFO]: POST /auth/login
-2025-10-30 18:52:29 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:30 [INFO]: POST /auth/login
-2025-10-30 18:52:30 [INFO]: Processing login for: demo@example.com
-2025-10-30 18:52:33 [INFO]: POST /auth/login
-2025-10-30 18:52:33 [INFO]: Processing login for: amremirate03@gmail.com
-2025-10-30 18:52:34 [INFO]: POST /auth/login
-2025-10-30 18:52:34 [INFO]: Processing login for: amremirate03@gmail.com
-2025-10-30 18:53:41 [INFO]: GET /products
-2025-10-30 18:53:41 [INFO]: Fetching all active products
-2025-10-30 18:53:42 [INFO]: GET /products
-2025-10-30 18:53:42 [INFO]: Fetching all active products
-2025-10-30 18:54:12 [INFO]: GET /products
-2025-10-30 18:54:12 [INFO]: Fetching all active products
-2025-10-30 18:54:13 [INFO]: GET /products
-2025-10-30 18:54:13 [INFO]: Fetching all active products
-2025-10-30 18:54:17 [INFO]: GET /products
-2025-10-30 18:54:17 [INFO]: Fetching all active products
-2025-10-30 18:54:17 [INFO]: GET /products
-2025-10-30 18:54:17 [INFO]: Fetching all active products
-2025-10-30 18:54:44 [INFO]: GET /products
-2025-10-30 18:54:44 [INFO]: Fetching all active products
-2025-10-30 18:54:44 [INFO]: GET /products
-2025-10-30 18:54:44 [INFO]: Fetching all active products
-2025-10-30 18:55:27 [INFO]: GET /products
-2025-10-30 18:55:27 [INFO]: Fetching all active products
-2025-10-30 18:55:27 [INFO]: GET /products
-2025-10-30 18:55:27 [INFO]: Fetching all active products
-2025-10-30 18:57:40 [INFO]: GET /products
-2025-10-30 18:57:40 [INFO]: Fetching all active products
-2025-10-30 18:57:40 [INFO]: GET /products
-2025-10-30 18:57:40 [INFO]: Fetching all active products
-2025-11-28 11:28:13 [INFO]: POST /auth/register/seller
-2025-11-28 11:28:13 [INFO]: Registering seller: newseller3@example.com
-2025-11-28 11:31:42 [INFO]: POST /auth/register/seller
-2025-11-28 11:31:42 [INFO]: Registering seller: approved2@example.com
-2025-11-28 11:33:43 [INFO]: POST /auth/register/seller
-2025-11-28 11:33:43 [INFO]: Registering seller: approved4@example.com
-2025-11-28 12:49:02 [INFO]: GET /products
-2025-11-28 12:49:02 [INFO]: Fetching all active products
-2025-11-28 12:50:02 [INFO]: GET /products
-2025-11-28 12:50:02 [INFO]: Fetching all active products
-2025-11-28 12:50:31 [INFO]: GET /products/cmiigx83u000008l09k9g3q4a
-2025-11-28 12:50:31 [INFO]: Fetching product details for: cmiigx83u000008l09k9g3q4a
-2025-11-28 12:50:38 [INFO]: GET /products
-2025-11-28 12:50:38 [INFO]: Fetching all active products
-2025-11-28 12:50:38 [INFO]: GET /products
-2025-11-28 12:50:38 [INFO]: Fetching all active products
-2025-11-28 16:04:58 [INFO]: GET /products
-2025-11-28 16:05:04 [INFO]: GET /community
-2025-11-28 16:05:04 [INFO]: GET /community
-2025-11-28 16:05:06 [INFO]: GET /products
-2025-11-28 16:05:06 [INFO]: GET /products
-2025-11-28 16:05:16 [INFO]: GET /products
-2025-11-28 16:05:22 [INFO]: GET /products
-2025-11-28 16:05:22 [INFO]: GET /products
-2025-11-28 16:05:40 [INFO]: POST /auth/login
-2025-11-28 16:05:40 [INFO]: Processing login for: demo@example.com
-2025-11-28 16:05:42 [INFO]: GET /community
-2025-11-28 16:05:42 [INFO]: GET /community
-2025-11-28 16:05:55 [INFO]: GET /products
-2025-11-28 16:05:55 [INFO]: GET /products
-2025-11-28 16:09:50 [INFO]: GET /community
-2025-11-28 16:09:50 [INFO]: GET /community
-2025-11-28 16:09:51 [INFO]: GET /products
-2025-11-28 16:09:52 [INFO]: GET /products
-2025-11-28 16:09:55 [INFO]: GET /products
-2025-11-28 16:09:55 [INFO]: GET /products
-2025-11-28 16:09:56 [INFO]: GET /community
-2025-11-28 16:09:56 [INFO]: GET /community
-2025-11-28 16:09:57 [INFO]: GET /products
-2025-11-28 16:09:58 [INFO]: GET /products
-2025-11-28 16:14:46 [INFO]: GET /products
-2025-11-28 16:14:51 [INFO]: GET /products
-2025-11-28 16:21:25 [INFO]: GET /products
-2025-11-28 16:22:38 [INFO]: GET /products
-2025-11-28 16:22:47 [INFO]: GET /products
-2025-11-28 16:23:11 [INFO]: GET /products
-2025-11-28 16:23:11 [INFO]: GET /products
-2025-11-28 16:23:17 [INFO]: GET /community
-2025-11-28 16:23:18 [INFO]: GET /community
-2025-11-28 16:23:19 [INFO]: GET /products
-2025-11-28 16:23:19 [INFO]: GET /products
-2025-11-28 16:24:06 [INFO]: GET /products
-2025-11-28 16:25:19 [INFO]: GET /products
-2025-11-28 16:25:29 [INFO]: GET /products
-2025-11-28 16:25:29 [INFO]: GET /products
-2025-11-28 16:25:44 [INFO]: GET /products
-2025-11-28 16:26:25 [INFO]: GET /community
-2025-11-28 16:26:26 [INFO]: GET /community
-2025-11-28 16:27:23 [INFO]: GET /products
-2025-11-28 16:27:23 [INFO]: GET /products
-2025-11-28 16:27:28 [INFO]: GET /products
-2025-11-28 16:27:28 [INFO]: GET /products
-2025-11-28 16:27:32 [INFO]: GET /products
-2025-11-28 16:27:32 [INFO]: GET /products
-2025-11-28 16:27:41 [INFO]: GET /community
-2025-11-28 16:27:41 [INFO]: GET /community
-2025-11-28 16:27:46 [INFO]: GET /products
-2025-11-28 16:27:46 [INFO]: GET /products
-2025-11-28 16:27:55 [INFO]: GET /products
-2025-11-28 16:27:55 [INFO]: GET /products
-2025-11-28 17:06:32 [INFO]: GET /products
-2025-11-28 17:06:43 [INFO]: GET /products
-2025-11-28 17:06:44 [INFO]: GET /products
-2025-11-28 17:06:46 [INFO]: GET /community
-2025-11-28 17:06:49 [INFO]: GET /community
-2025-11-28 17:06:49 [INFO]: GET /products
-2025-11-28 17:06:49 [INFO]: GET /products
-2025-11-28 17:09:04 [INFO]: GET /community
-2025-11-28 17:09:05 [INFO]: GET /community
-2025-11-28 17:09:06 [INFO]: GET /products
-2025-11-28 17:09:06 [INFO]: GET /products
-2025-11-28 17:09:07 [INFO]: GET /community
-2025-11-28 17:09:08 [INFO]: GET /community
-2025-11-28 17:09:30 [INFO]: GET /community
-2025-11-28 17:10:03 [INFO]: GET /products
-2025-11-28 17:10:03 [INFO]: GET /products
-2025-11-30 11:51:01 [INFO]: POST /auth/login
-2025-11-30 11:51:01 [INFO]: Processing login for: admin@starpearl.com
-2025-11-30 11:51:05 [INFO]: POST /auth/login
-2025-11-30 11:51:05 [INFO]: Processing login for: admin@starpearl.com
-2025-11-30 11:51:27 [INFO]: GET /products
-2025-11-30 11:51:27 [INFO]: GET /products
-2025-11-30 11:54:52 [INFO]: POST /auth/login
-2025-11-30 11:54:52 [INFO]: Processing login for: admin@starpearl.com
-2025-11-30 12:06:50 [INFO]: GET /products
-2025-11-30 12:09:04 [INFO]: GET /products
-2025-11-30 12:09:04 [INFO]: GET /products
+2025-11-30 13:07:50 [INFO]: GET /
+2025-11-30 13:07:50 [INFO]: GET /transaction
+2025-11-30 13:07:51 [INFO]: POST /auth/register/buyer
+2025-11-30 13:07:51 [INFO]: POST /auth/register/seller
+2025-11-30 13:07:51 [INFO]: POST /auth/register/buyer
+2025-11-30 13:07:51 [INFO]: POST /auth/login
+2025-11-30 13:07:51 [INFO]: POST /auth/login
+2025-11-30 13:07:51 [INFO]: POST /auth/login
+2025-11-30 13:07:51 [INFO]: POST /auth/login
+2025-11-30 13:09:14 [INFO]: GET /
+2025-11-30 13:09:14 [INFO]: GET /transaction
+2025-11-30 13:09:14 [INFO]: POST /auth/register/buyer
+2025-11-30 13:09:14 [INFO]: POST /auth/register/seller
+2025-11-30 13:09:14 [INFO]: POST /auth/register/buyer
+2025-11-30 13:09:14 [INFO]: POST /auth/login
+2025-11-30 13:09:14 [INFO]: POST /auth/login
+2025-11-30 13:09:14 [INFO]: POST /auth/login
+2025-11-30 13:09:14 [INFO]: POST /auth/login
+2025-11-30 13:09:28 [INFO]: GET /
+2025-11-30 13:09:28 [INFO]: GET /transaction
+2025-11-30 13:09:28 [INFO]: POST /auth/register/buyer
+2025-11-30 13:09:28 [INFO]: POST /auth/register/seller
+2025-11-30 13:09:28 [INFO]: POST /auth/register/buyer
+2025-11-30 13:09:28 [INFO]: POST /auth/login
+2025-11-30 13:09:28 [INFO]: POST /auth/login
+2025-11-30 13:09:28 [INFO]: POST /auth/login
+2025-11-30 13:09:28 [INFO]: POST /auth/login
+2025-11-30 13:10:33 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:10:33 [INFO]: Registering buyer: newbuyer@example.com
+2025-11-30 13:10:34 [INFO]: POST /api/auth/register/seller
+2025-11-30 13:10:34 [INFO]: Registering seller: newseller@example.com
+2025-11-30 13:10:34 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:10:34 [INFO]: Registering buyer: testbuyer@example.com
+2025-11-30 13:10:34 [INFO]: POST /api/auth/login
+2025-11-30 13:10:34 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:10:34 [INFO]: POST /api/auth/login
+2025-11-30 13:10:34 [INFO]: Processing login for: testseller@example.com
+2025-11-30 13:10:34 [INFO]: POST /api/auth/login
+2025-11-30 13:10:34 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:10:35 [INFO]: POST /api/auth/login
+2025-11-30 13:10:35 [INFO]: Processing login for: no-user@example.com
+2025-11-30 13:10:49 [INFO]: GET /
+2025-11-30 13:10:49 [INFO]: GET /transaction
+2025-11-30 13:10:49 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:10:49 [INFO]: Registering buyer: newbuyer@example.com
+2025-11-30 13:10:49 [INFO]: POST /api/auth/register/seller
+2025-11-30 13:10:49 [INFO]: Registering seller: newseller@example.com
+2025-11-30 13:10:50 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:10:50 [INFO]: Registering buyer: testbuyer@example.com
+2025-11-30 13:10:50 [INFO]: POST /api/auth/login
+2025-11-30 13:10:50 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:10:50 [INFO]: POST /api/auth/login
+2025-11-30 13:10:50 [INFO]: Processing login for: testseller@example.com
+2025-11-30 13:10:51 [INFO]: POST /api/auth/login
+2025-11-30 13:10:51 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:10:51 [INFO]: POST /api/auth/login
+2025-11-30 13:10:51 [INFO]: Processing login for: no-user@example.com
+2025-11-30 13:11:06 [INFO]: GET /
+2025-11-30 13:11:06 [INFO]: GET /transaction
+2025-11-30 13:11:06 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:11:06 [INFO]: Registering buyer: newbuyer@example.com
+2025-11-30 13:11:07 [INFO]: POST /api/auth/register/seller
+2025-11-30 13:11:07 [INFO]: Registering seller: newseller@example.com
+2025-11-30 13:11:07 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:11:07 [INFO]: Registering buyer: testbuyer@example.com
+2025-11-30 13:11:07 [INFO]: POST /api/auth/login
+2025-11-30 13:11:07 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:11:07 [INFO]: POST /api/auth/login
+2025-11-30 13:11:07 [INFO]: Processing login for: testseller@example.com
+2025-11-30 13:11:08 [INFO]: POST /api/auth/login
+2025-11-30 13:11:08 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:11:08 [INFO]: POST /api/auth/login
+2025-11-30 13:11:08 [INFO]: Processing login for: no-user@example.com
+2025-11-30 13:11:33 [INFO]: GET /
+2025-11-30 13:11:33 [INFO]: GET /transaction
+2025-11-30 13:12:12 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:12:12 [INFO]: Registering buyer: newbuyer@example.com
+2025-11-30 13:12:12 [INFO]: POST /api/auth/register/seller
+2025-11-30 13:12:12 [INFO]: Registering seller: newseller@example.com
+2025-11-30 13:12:12 [INFO]: GET /
+2025-11-30 13:12:12 [INFO]: GET /transaction
+2025-11-30 13:12:12 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:12:12 [INFO]: Registering buyer: testbuyer@example.com
+2025-11-30 13:12:12 [INFO]: POST /api/auth/login
+2025-11-30 13:12:12 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:12:13 [INFO]: POST /api/auth/login
+2025-11-30 13:12:13 [INFO]: Processing login for: testseller@example.com
+2025-11-30 13:12:13 [INFO]: POST /api/auth/login
+2025-11-30 13:12:13 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:12:13 [INFO]: POST /api/auth/login
+2025-11-30 13:12:13 [INFO]: Processing login for: no-user@example.com
+2025-11-30 13:12:27 [INFO]: GET /
+2025-11-30 13:12:27 [INFO]: GET /transaction
+2025-11-30 13:12:27 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:12:27 [INFO]: Registering buyer: newbuyer@example.com
+2025-11-30 13:12:27 [INFO]: POST /api/auth/register/seller
+2025-11-30 13:12:27 [INFO]: Registering seller: newseller@example.com
+2025-11-30 13:12:28 [INFO]: POST /api/auth/register/buyer
+2025-11-30 13:12:28 [INFO]: Registering buyer: testbuyer@example.com
+2025-11-30 13:12:28 [INFO]: POST /api/auth/login
+2025-11-30 13:12:28 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:12:28 [INFO]: POST /api/auth/login
+2025-11-30 13:12:28 [INFO]: Processing login for: testseller@example.com
+2025-11-30 13:12:28 [INFO]: POST /api/auth/login
+2025-11-30 13:12:28 [INFO]: Processing login for: testbuyer@example.com
+2025-11-30 13:12:29 [INFO]: POST /api/auth/login
+2025-11-30 13:12:29 [INFO]: Processing login for: no-user@example.com

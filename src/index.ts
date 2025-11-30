@@ -1,8 +1,11 @@
-import App from './app';
+import "dotenv/config";
+import App from "./app";
 
-const main = () => {
-  const server = new App();
-  server.start();
-};
+const app = new App();
+const expressApp = app.getApp();
 
-main();
+if (process.env.NODE_ENV !== "production") {
+  app.start();
+}
+
+export default expressApp;
