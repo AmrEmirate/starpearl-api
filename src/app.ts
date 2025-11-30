@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
+import "./config/passport";
+import passport from "passport";
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import AuthRouter from "./routers/auth.router";
@@ -23,7 +25,7 @@ import ChatRouter from "./routers/chat.router";
 import VoucherRouter from "./routers/voucher.router";
 import StatsRouter from "./routers/stats.router";
 
-const PORT: string = process.env.PORT || "2020";
+const PORT: string = process.env.PORT as string;
 
 class App {
   public app: Application;
@@ -38,6 +40,7 @@ class App {
   private configure(): void {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(passport.initialize());
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       logger.info(`${req.method} ${req.path}`);
       next();
@@ -50,55 +53,55 @@ class App {
     });
 
     const authRouter: AuthRouter = new AuthRouter();
-    this.app.use("/auth", authRouter.getRouter());
+    this.app.use("/api/auth", authRouter.getRouter());
 
     const adminRouter: AdminRouter = new AdminRouter();
-    this.app.use("/admin", adminRouter.getRouter());
+    this.app.use("/api/admin", adminRouter.getRouter());
 
     const userRouter: UserRouter = new UserRouter();
-    this.app.use("/users", userRouter.getRouter());
+    this.app.use("/api/users", userRouter.getRouter());
 
     const productRouter: ProductRouter = new ProductRouter();
-    this.app.use("/products", productRouter.getRouter());
+    this.app.use("/api/products", productRouter.getRouter());
 
     const cartRouter: CartRouter = new CartRouter();
-    this.app.use("/cart", cartRouter.getRouter());
+    this.app.use("/api/cart", cartRouter.getRouter());
 
     const orderRouter: OrderRouter = new OrderRouter();
-    this.app.use("/orders", orderRouter.getRouter());
+    this.app.use("/api/orders", orderRouter.getRouter());
 
     const addressRouter: AddressRouter = new AddressRouter();
-    this.app.use("/addresses", addressRouter.getRouter());
+    this.app.use("/api/addresses", addressRouter.getRouter());
 
     const communityRouter: CommunityRouter = new CommunityRouter();
-    this.app.use("/community", communityRouter.getRouter());
+    this.app.use("/api/community", communityRouter.getRouter());
 
     const storeRouter: StoreRouter = new StoreRouter();
-    this.app.use("/stores", storeRouter.getRouter());
+    this.app.use("/api/stores", storeRouter.getRouter());
 
     const checkoutRouter: CheckoutRouter = new CheckoutRouter();
-    this.app.use("/checkout", checkoutRouter.getRouter());
+    this.app.use("/api/checkout", checkoutRouter.getRouter());
 
     const wishlistRouter: WishlistRouter = new WishlistRouter();
-    this.app.use("/wishlist", wishlistRouter.getRouter());
+    this.app.use("/api/wishlist", wishlistRouter.getRouter());
 
     const paymentRouter: PaymentRouter = new PaymentRouter();
-    this.app.use("/payment", paymentRouter.getRouter());
+    this.app.use("/api/payment", paymentRouter.getRouter());
 
     const reviewRouter: ReviewRouter = new ReviewRouter();
-    this.app.use("/reviews", reviewRouter.getRouter());
+    this.app.use("/api/reviews", reviewRouter.getRouter());
 
     const withdrawalRouter: WithdrawalRouter = new WithdrawalRouter();
-    this.app.use("/withdrawals", withdrawalRouter.getRouter());
+    this.app.use("/api/withdrawals", withdrawalRouter.getRouter());
 
     const chatRouter: ChatRouter = new ChatRouter();
-    this.app.use("/chats", chatRouter.getRouter());
+    this.app.use("/api/chats", chatRouter.getRouter());
 
     const voucherRouter: VoucherRouter = new VoucherRouter();
-    this.app.use("/vouchers", voucherRouter.getRouter());
+    this.app.use("/api/vouchers", voucherRouter.getRouter());
 
     const statsRouter: StatsRouter = new StatsRouter();
-    this.app.use("/stats", statsRouter.getRouter());
+    this.app.use("/api/stats", statsRouter.getRouter());
   }
 
   private errorHandler(): void {

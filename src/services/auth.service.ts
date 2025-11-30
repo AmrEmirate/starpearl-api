@@ -28,6 +28,7 @@ export class AuthService {
       name: data.name,
       passwordHash,
       role: "BUYER",
+      googleId: null,
     });
 
     const { passwordHash: _, ...userWithoutPassword } = newUser;
@@ -48,6 +49,7 @@ export class AuthService {
         name: data.name,
         passwordHash,
         role: "SELLER",
+        googleId: null,
       },
       data.storeName
     );
@@ -63,11 +65,22 @@ export class AuthService {
       throw new AppError("Account is not exist", 404);
     }
 
-    if (account.role === 'SELLER') {
-      const store = await prisma.store.findUnique({ where: { userId: account.id } });
-      if (store?.status !== 'APPROVED') {
-        throw new AppError(`Your seller account is ${store?.status?.toLowerCase() || 'not approved'}. Please contact admin.`, 403);
+    if (account.role === "SELLER") {
+      const store = await prisma.store.findUnique({
+        where: { userId: account.id },
+      });
+      if (store?.status !== "APPROVED") {
+        throw new AppError(
+          `Your seller account is ${
+            store?.status?.toLowerCase() || "not approved"
+          }. Please contact admin.`,
+          403
+        );
       }
+    }
+
+    if (!account.passwordHash) {
+      throw new AppError("Please login with Google", 400);
     }
 
     const comparePass = await compare(data.password, account.passwordHash);

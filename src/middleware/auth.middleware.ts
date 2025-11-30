@@ -3,6 +3,15 @@ import { verify } from "jsonwebtoken";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
 
+declare global {
+  namespace Express {
+    interface User {
+      id: string;
+      role: string;
+    }
+  }
+}
+
 export interface RequestWithUser extends Request {
   user?: {
     id: string;
@@ -11,7 +20,7 @@ export interface RequestWithUser extends Request {
 }
 
 export class AuthMiddleware {
-  async verifyToken(req: RequestWithUser, res: Response, next: NextFunction) {
+  async verifyToken(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -39,7 +48,7 @@ export class AuthMiddleware {
     }
   }
 
-  async extractUser(req: RequestWithUser, res: Response, next: NextFunction) {
+  async extractUser(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -61,15 +70,17 @@ export class AuthMiddleware {
     }
   }
 
-  isAdmin = (req: RequestWithUser, res: Response, next: NextFunction) => {
-    if (req.user?.role !== "ADMIN") {
+  isAdmin = (req: Request, res: Response, next: NextFunction) => {
+    const user = (req as RequestWithUser).user;
+    if (user?.role !== "ADMIN") {
       return next(new AppError("Forbidden: Admins only", 403));
     }
     next();
   };
 
-  isSeller = (req: RequestWithUser, res: Response, next: NextFunction) => {
-    if (req.user?.role !== "SELLER") {
+  isSeller = (req: Request, res: Response, next: NextFunction) => {
+    const user = (req as RequestWithUser).user;
+    if (user?.role !== "SELLER") {
       return next(new AppError("Forbidden: Sellers only", 403));
     }
     next();

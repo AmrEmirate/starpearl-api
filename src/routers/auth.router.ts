@@ -7,6 +7,7 @@ import {
   loginValidation,
 } from "../middleware/validation/auth";
 import { AuthMiddleware } from "../middleware/auth.middleware";
+import passport from "passport";
 
 class AuthRouter {
   private route: Router;
@@ -33,17 +34,29 @@ class AuthRouter {
       this.authController.registerSeller
     );
 
-    this.route.post(
-      "/login", 
-      loginValidation, 
-      this.authController.login
+    this.route.post("/login", loginValidation, this.authController.login);
+
+    this.route.get(
+      "/google",
+      passport.authenticate("google", { scope: ["profile", "email"] })
+    );
+
+    this.route.get(
+      "/google/callback",
+      passport.authenticate("google", {
+        session: false,
+        failureRedirect: "/login",
+      }),
+      this.authController.googleCallback
     );
 
     this.route.patch(
       "/profile-img",
-      this.authMiddleware.verifyToken,
+      this.authMiddleware
+        .verifyToken as unknown as import("express").RequestHandler,
       uploaderMemory().single("img"),
-      this.authController.changeProfileImg
+      this.authController
+        .changeProfileImg as unknown as import("express").RequestHandler
     );
   }
 

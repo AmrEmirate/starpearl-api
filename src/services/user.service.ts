@@ -55,6 +55,10 @@ export class UserService {
       throw new AppError("User not found", 404);
     }
 
+    if (!user.passwordHash) {
+      throw new AppError("User has no password set", 400);
+    }
+
     const isPasswordValid = await bcrypt.compare(
       data.oldPassword,
       user.passwordHash

@@ -124,3 +124,30 @@
 2025-11-28 16:27:46 [INFO]: GET /products
 2025-11-28 16:27:55 [INFO]: GET /products
 2025-11-28 16:27:55 [INFO]: GET /products
+2025-11-28 17:06:32 [INFO]: GET /products
+2025-11-28 17:06:43 [INFO]: GET /products
+2025-11-28 17:06:44 [INFO]: GET /products
+2025-11-28 17:06:46 [INFO]: GET /community
+2025-11-28 17:06:49 [INFO]: GET /community
+2025-11-28 17:06:49 [INFO]: GET /products
+2025-11-28 17:06:49 [INFO]: GET /products
+2025-11-28 17:09:04 [INFO]: GET /community
+2025-11-28 17:09:05 [INFO]: GET /community
+2025-11-28 17:09:06 [INFO]: GET /products
+2025-11-28 17:09:06 [INFO]: GET /products
+2025-11-28 17:09:07 [INFO]: GET /community
+2025-11-28 17:09:08 [INFO]: GET /community
+2025-11-28 17:09:30 [INFO]: GET /community
+2025-11-28 17:10:03 [INFO]: GET /products
+2025-11-28 17:10:03 [INFO]: GET /products
+2025-11-30 11:51:01 [INFO]: POST /auth/login
+2025-11-30 11:51:01 [INFO]: Processing login for: admin@starpearl.com
+2025-11-30 11:51:05 [INFO]: POST /auth/login
+2025-11-30 11:51:05 [INFO]: Processing login for: admin@starpearl.com
+2025-11-30 11:51:27 [INFO]: GET /products
+2025-11-30 11:51:27 [INFO]: GET /products
+2025-11-30 11:54:52 [INFO]: POST /auth/login
+2025-11-30 11:54:52 [INFO]: Processing login for: admin@starpearl.com
+2025-11-30 12:06:50 [INFO]: GET /products
+2025-11-30 12:09:04 [INFO]: GET /products
+2025-11-30 12:09:04 [INFO]: GET /products

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { AuthService } from "../services/auth.service";
 import logger from "../utils/logger";
 import { RequestWithUser } from "../middleware/auth.middleware";
+import { createToken } from "../utils/createToken";
 
 class AuthController {
   private authService: AuthService;
@@ -10,7 +11,11 @@ class AuthController {
     this.authService = new AuthService();
   }
 
-  public registerBuyer = async (req: Request, res: Response, next: NextFunction) => {
+  public registerBuyer = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const result = await this.authService.registerBuyer(req.body);
       res.status(201).send({
@@ -24,7 +29,11 @@ class AuthController {
     }
   };
 
-  public registerSeller = async (req: Request, res: Response, next: NextFunction) => {
+  public registerSeller = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const result = await this.authService.registerSeller(req.body);
       res.status(201).send({
@@ -52,7 +61,11 @@ class AuthController {
     }
   };
 
-  public changeProfileImg = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public changeProfileImg = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       if (!req.user || !req.user.id) {
         throw new Error("User not authenticated");
@@ -61,7 +74,10 @@ class AuthController {
         throw new Error("No file uploaded");
       }
 
-      const result = await this.authService.updateProfileImage(req.user.id, req.file);
+      const result = await this.authService.updateProfileImage(
+        req.user.id,
+        req.file
+      );
       res.status(200).send({
         success: true,
         ...result,
@@ -69,6 +85,28 @@ class AuthController {
     } catch (error) {
       logger.error("Error in changeProfileImg controller", error);
       next(error);
+    }
+  };
+
+  public googleCallback = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const user = req.user as any;
+      if (!user) {
+        throw new Error("Authentication failed");
+      }
+
+      const token = createToken(user, "24h");
+
+      // Redirect to frontend with token
+      const frontendUrl = process.env.FRONTEND_URL;
+      res.redirect(`${frontendUrl}/auth/google/callback?token=${token}`);
+    } catch (error) {
+      logger.error("Error in googleCallback controller", error);
+      res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed`);
     }
   };
 }

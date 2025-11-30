@@ -22,3 +22,9 @@
 2025-11-28 12:50:31 [ERROR]: GET /products/cmiigx83u000008l09k9g3q4a: Product not found or is inactive {"code":404,"message":"Product not found or is inactive","isSuccess":false}
 2025-11-28 16:05:40 [ERROR]: Error in login controller Account is not exist
 2025-11-28 16:05:40 [ERROR]: POST /auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-11-30 11:51:02 [ERROR]: Error in login controller Password is wrong
+2025-11-30 11:51:02 [ERROR]: POST /auth/login: Password is wrong {"code":400,"message":"Password is wrong","isSuccess":false}
+2025-11-30 11:51:05 [ERROR]: Error in login controller Password is wrong
+2025-11-30 11:51:05 [ERROR]: POST /auth/login: Password is wrong {"code":400,"message":"Password is wrong","isSuccess":false}
+2025-11-30 11:54:53 [ERROR]: Error in login controller Password is wrong
+2025-11-30 11:54:53 [ERROR]: POST /auth/login: Password is wrong {"code":400,"message":"Password is wrong","isSuccess":false}
