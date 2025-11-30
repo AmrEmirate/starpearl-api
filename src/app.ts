@@ -9,6 +9,7 @@ import logger from "./utils/logger";
 import AppError from "./utils/AppError";
 import UserRouter from "./routers/user.router";
 import ProductRouter from "./routers/product.router";
+import CategoryRouter from "./routers/category.router";
 import CartRouter from "./routers/cart.router";
 import AddressRouter from "./routers/address.router";
 import OrderRouter from "./routers/order.router";
@@ -21,11 +22,11 @@ import PaymentRouter from "./routers/payment.router";
 import ReviewRouter from "./routers/review.router";
 import WithdrawalRouter from "./routers/withdrawal.router";
 import ChatRouter from "./routers/chat.router";
-
+import AttributeRouter from "./routers/attribute.router";
 import VoucherRouter from "./routers/voucher.router";
 import StatsRouter from "./routers/stats.router";
 
-const PORT: string = process.env.PORT as string;
+const PORT: string = process.env.PORT || "2020";
 
 class App {
   public app: Application;
@@ -33,13 +34,14 @@ class App {
   constructor() {
     this.app = express();
     this.configure();
-    this.route();
+    this.routes();
     this.errorHandler();
   }
 
   private configure(): void {
-    this.app.use(cors());
+    this.app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
     this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
     this.app.use(passport.initialize());
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       logger.info(`${req.method} ${req.path}`);
@@ -47,7 +49,7 @@ class App {
     });
   }
 
-  private route(): void {
+  private routes(): void {
     this.app.get("/", (req: Request, res: Response) => {
       res.status(200).send("<h1>Starpearl API</h1>");
     });
@@ -63,6 +65,12 @@ class App {
 
     const productRouter: ProductRouter = new ProductRouter();
     this.app.use("/api/products", productRouter.getRouter());
+
+    const categoryRouter: CategoryRouter = new CategoryRouter();
+    this.app.use("/api/categories", categoryRouter.getRouter());
+
+    const attributeRouter: AttributeRouter = new AttributeRouter();
+    this.app.use("/api/attributes", attributeRouter.getRouter());
 
     const cartRouter: CartRouter = new CartRouter();
     this.app.use("/api/cart", cartRouter.getRouter());

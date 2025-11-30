@@ -58,6 +58,12 @@ class AuthRouter {
       this.authController
         .changeProfileImg as unknown as import("express").RequestHandler
     );
+
+    this.route.post("/reset-password", this.authController.resetPassword);
+    this.route.post(
+      "/reset-password/confirm",
+      this.authController.confirmResetPassword
+    );
   }
 
   public getRouter(): Router {

@@ -14,6 +14,17 @@ export class StoreRepository {
     }
   }
 
+  async findById(storeId: string): Promise<Store | null> {
+    try {
+      return await prisma.store.findUnique({
+        where: { id: storeId },
+      });
+    } catch (error) {
+      logger.error(`Error finding store by ID: ${storeId}`, error);
+      throw new Error("Database query failed while finding store");
+    }
+  }
+
   async updateStore(storeId: string, data: Partial<Store>): Promise<Store> {
     try {
       return await prisma.store.update({

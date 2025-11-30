@@ -40,6 +40,21 @@ class StoreRouter {
       this.authMiddleware.isSeller,
       this.storeController.submitVerification
     );
+
+    // Public Store Profile
+    this.route.get("/:id", this.storeController.getStoreById);
+
+    // Follow/Unfollow
+    this.route.post(
+      "/:id/follow",
+      this.authMiddleware.verifyToken,
+      this.storeController.followStore
+    );
+    this.route.delete(
+      "/:id/follow",
+      this.authMiddleware.verifyToken,
+      this.storeController.unfollowStore
+    );
   }
 
   public getRouter(): Router {

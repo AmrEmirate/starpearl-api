@@ -125,6 +125,60 @@ class StoreController {
       next(error);
     }
   };
+
+  public getStoreById = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { id } = req.params;
+      const result = await this.storeService.getStoreById(id);
+      res.status(200).send({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public followStore = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) throw new AppError("Authentication failed", 401);
+      const { id } = req.params;
+      const result = await this.storeService.followStore(req.user.id, id);
+      res.status(200).send({
+        success: true,
+        message: "Followed store successfully",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public unfollowStore = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) throw new AppError("Authentication failed", 401);
+      const { id } = req.params;
+      await this.storeService.unfollowStore(req.user.id, id);
+      res.status(200).send({
+        success: true,
+        message: "Unfollowed store successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default StoreController;

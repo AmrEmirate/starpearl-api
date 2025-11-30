@@ -109,6 +109,37 @@ class AuthController {
       res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed`);
     }
   };
+  public resetPassword = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await this.authService.resetPassword(req.body);
+      res.status(200).send({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public confirmResetPassword = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await this.authService.confirmResetPassword(req.body);
+      res.status(200).send({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default AuthController;

@@ -1,5 +1,6 @@
 import { Store } from "../generated/prisma";
 import { StoreRepository } from "../repositories/store.repository";
+import { prisma } from "../config/prisma";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
@@ -55,6 +56,56 @@ export class StoreService {
       idCardUrl: data.idCardUrl,
       businessLicenseUrl: data.businessLicenseUrl,
       status: "PENDING", // Reset status to PENDING for review
+    });
+  }
+
+  public async getStoreById(storeId: string) {
+    const store = await prisma.store.findUnique({
+      where: { id: storeId },
+      include: {
+        products: {
+          where: { isActive: true },
+          take: 10, // Limit for now
+        },
+      },
+    });
+    if (!store) throw new AppError("Store not found", 404);
+    return store;
+  }
+
+  public async followStore(userId: string, storeId: string) {
+    // Check if store exists
+    const store = await this.storeRepository.findById(storeId);
+    if (!store) throw new AppError("Store not found", 404);
+
+    // Check if already following
+    const existingFollow = await prisma.storeFollow.findUnique({
+      where: {
+        userId_storeId: {
+          userId,
+          storeId,
+        },
+      },
+    });
+
+    if (existingFollow) throw new AppError("Already following this store", 400);
+
+    return prisma.storeFollow.create({
+      data: {
+        userId,
+        storeId,
+      },
+    });
+  }
+
+  public async unfollowStore(userId: string, storeId: string) {
+    return prisma.storeFollow.delete({
+      where: {
+        userId_storeId: {
+          userId,
+          storeId,
+        },
+      },
     });
   }
 }
