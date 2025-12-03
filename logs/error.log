@@ -1,0 +1,160 @@
+2025-11-30 16:06:54 [ERROR]: Error in getStats controller 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+The table `public.Product` does not exist in the current database.
+2025-11-30 16:06:54 [ERROR]: GET /api/stats: 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+The table `public.Product` does not exist in the current database. {"code":"P2021","meta":{"modelName":"Product","table":"public.Product"},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-30 16:06:54 [ERROR]: Error finding products 
+Invalid `prisma.product.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\repositories\product.repository.ts:29:35
+
+  26   ...filters, // Gabungkan dengan filter tambahan
+  27 };
+  28 
+→ 29 return await prisma.product.findMany(
+The table `public.Product` does not exist in the current database.
+2025-11-30 16:06:54 [ERROR]: Error in getAllProducts controller Database query failed while finding products
+2025-11-30 16:06:54 [ERROR]: GET /api/products: Database query failed while finding products {}
+2025-11-30 16:06:54 [ERROR]: GET /api/community: 
+Invalid `prisma.communityPost.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\community.service.ts:13:46
+
+  10 ) {
+  11   const skip = (page - 1) * limit;
+  12 
+→ 13   const posts = await prisma.communityPost.findMany(
+The table `public.CommunityPost` does not exist in the current database. {"code":"P2021","meta":{"modelName":"CommunityPost","table":"public.CommunityPost"},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-30 16:07:28 [ERROR]: Error finding products 
+Invalid `prisma.product.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\repositories\product.repository.ts:29:35
+
+  26   ...filters, // Gabungkan dengan filter tambahan
+  27 };
+  28 
+→ 29 return await prisma.product.findMany(
+The table `public.Product` does not exist in the current database.
+2025-11-30 16:07:28 [ERROR]: Error in getAllProducts controller Database query failed while finding products
+2025-11-30 16:07:28 [ERROR]: GET /api/products: Database query failed while finding products {}
+2025-11-30 16:07:28 [ERROR]: Error in getStats controller 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+The table `public.Product` does not exist in the current database.
+2025-11-30 16:07:28 [ERROR]: GET /api/stats: 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+The table `public.Product` does not exist in the current database. {"code":"P2021","meta":{"modelName":"Product","table":"public.Product"},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-30 16:07:28 [ERROR]: GET /api/community: 
+Invalid `prisma.communityPost.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\community.service.ts:13:46
+
+  10 ) {
+  11   const skip = (page - 1) * limit;
+  12 
+→ 13   const posts = await prisma.communityPost.findMany(
+The table `public.CommunityPost` does not exist in the current database. {"code":"P2021","meta":{"modelName":"CommunityPost","table":"public.CommunityPost"},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-30 16:08:03 [ERROR]: Error finding products 
+Invalid `prisma.product.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\repositories\product.repository.ts:29:35
+
+  26   ...filters, // Gabungkan dengan filter tambahan
+  27 };
+  28 
+→ 29 return await prisma.product.findMany(
+The table `public.Product` does not exist in the current database.
+2025-11-30 16:08:03 [ERROR]: Error in getAllProducts controller Database query failed while finding products
+2025-11-30 16:08:03 [ERROR]: GET /api/products: Database query failed while finding products {}
+2025-11-30 16:08:04 [ERROR]: GET /api/community: 
+Invalid `prisma.communityPost.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\community.service.ts:13:46
+
+  10 ) {
+  11   const skip = (page - 1) * limit;
+  12 
+→ 13   const posts = await prisma.communityPost.findMany(
+The table `public.CommunityPost` does not exist in the current database. {"code":"P2021","meta":{"modelName":"CommunityPost","table":"public.CommunityPost"},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-30 16:08:04 [ERROR]: Error in getStats controller 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+The table `public.Product` does not exist in the current database.
+2025-11-30 16:08:04 [ERROR]: GET /api/stats: 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+The table `public.Product` does not exist in the current database. {"code":"P2021","meta":{"modelName":"Product","table":"public.Product"},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-30 16:11:06 [ERROR]: Error finding products 
+Invalid `prisma.product.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\repositories\product.repository.ts:29:35
+
+  26   ...filters, // Gabungkan dengan filter tambahan
+  27 };
+  28 
+→ 29 return await prisma.product.findMany(
+Can't reach database server at `aws-1-ap-southeast-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-ap-southeast-1.pooler.supabase.com:6543`.
+2025-11-30 16:11:06 [ERROR]: Error in getStats controller 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+Can't reach database server at `aws-1-ap-southeast-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-ap-southeast-1.pooler.supabase.com:6543`.
+2025-11-30 16:11:06 [ERROR]: GET /api/community: 
+Invalid `prisma.communityPost.findMany()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\community.service.ts:13:46
+
+  10 ) {
+  11   const skip = (page - 1) * limit;
+  12 
+→ 13   const posts = await prisma.communityPost.findMany(
+Can't reach database server at `aws-1-ap-southeast-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-ap-southeast-1.pooler.supabase.com:6543`. {"clientVersion":"6.17.1","name":"PrismaClientInitializationError"}
+2025-11-30 16:11:06 [ERROR]: Error in getAllProducts controller Database query failed while finding products
+2025-11-30 16:11:06 [ERROR]: GET /api/products: Database query failed while finding products {}
+2025-11-30 16:11:06 [ERROR]: GET /api/stats: 
+Invalid `prisma.product.count()` invocation in
+C:\Dev 1\starpearl\starpearl-api\src\services\stats.service.ts:5:48
+
+  2 
+  3 export class StatsService {
+  4   async getStats() {
+→ 5     const totalProducts = await prisma.product.count(
+Can't reach database server at `aws-1-ap-southeast-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-ap-southeast-1.pooler.supabase.com:6543`. {"clientVersion":"6.17.1","name":"PrismaClientInitializationError"}
