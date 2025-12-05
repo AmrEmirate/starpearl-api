@@ -37,6 +37,12 @@ class OrderRouter {
       this.authMiddleware.isSeller,
       this.orderController.updateOrderStatus
     );
+
+    // Buyer confirms order received
+    this.route.patch(
+      "/:id/confirm-received",
+      this.orderController.confirmOrderReceived
+    );
   }
 
   public getRouter(): Router {

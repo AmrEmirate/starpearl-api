@@ -109,4 +109,16 @@ export class CommunityService {
       },
     });
   }
+
+  public async getComments(postId: string) {
+    return await prisma.communityComment.findMany({
+      where: { postId },
+      include: {
+        user: {
+          select: { id: true, name: true, avatarUrl: true },
+        },
+      },
+      orderBy: { createdAt: "asc" },
+    });
+  }
 }

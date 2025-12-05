@@ -23,8 +23,10 @@ export class ProductService {
       description: string;
       price: number;
       stock: number;
-      category: string;
+      category?: string;
+      categoryId?: string;
       imageUrls: string[];
+      attributeValueIds?: string[];
     }
   ): Promise<Product> {
     logger.info(`Creating product for user: ${userId}`);
@@ -38,30 +40,65 @@ export class ProductService {
       throw new AppError("Store is not approved yet", 403);
     }
 
-    let categoryRecord = await prisma.category.findUnique({
-      where: { name: data.category },
-    });
+    let categoryRecordId: string;
 
-    if (!categoryRecord) {
-      const slug = data.category.toLowerCase().replace(/ /g, "-");
-      categoryRecord = await prisma.category.create({
-        data: {
-          name: data.category,
-          slug: slug,
-        },
+    // Support both categoryId (direct ID) and category (name)
+    if (data.categoryId) {
+      const categoryExists = await prisma.category.findUnique({
+        where: { id: data.categoryId },
       });
+      if (!categoryExists) {
+        throw new AppError("Category not found", 404);
+      }
+      categoryRecordId = data.categoryId;
+    } else if (data.category) {
+      let categoryRecord = await prisma.category.findUnique({
+        where: { name: data.category },
+      });
+
+      if (!categoryRecord) {
+        const slug = data.category.toLowerCase().replace(/ /g, "-");
+        categoryRecord = await prisma.category.create({
+          data: {
+            name: data.category,
+            slug: slug,
+          },
+        });
+      }
+      categoryRecordId = categoryRecord.id;
+    } else {
+      throw new AppError("Category is required", 400);
     }
 
-    return this.productRepository.createProduct({
-      name: data.name,
-      description: data.description,
-      stock: data.stock,
-      imageUrls: data.imageUrls,
-      storeId: store.id,
-      isActive: true,
-      price: new Decimal(data.price),
-      categoryId: categoryRecord.id,
+    // Create product with transaction to handle attributes
+    const product = await prisma.$transaction(async (tx) => {
+      const newProduct = await tx.product.create({
+        data: {
+          name: data.name,
+          description: data.description,
+          stock: data.stock,
+          imageUrls: data.imageUrls,
+          storeId: store.id,
+          isActive: true,
+          price: new Decimal(data.price),
+          categoryId: categoryRecordId,
+        },
+      });
+
+      // Add attribute assignments if provided
+      if (data.attributeValueIds && data.attributeValueIds.length > 0) {
+        await tx.productAttributeAssignment.createMany({
+          data: data.attributeValueIds.map((attrValId) => ({
+            productId: newProduct.id,
+            attributeValueId: attrValId,
+          })),
+        });
+      }
+
+      return newProduct;
     });
+
+    return product;
   }
 
   public async getAllProducts(queryParams?: {

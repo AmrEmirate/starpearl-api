@@ -114,6 +114,34 @@ class OrderController {
       next(error);
     }
   };
+
+  public confirmOrderReceived = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (!req.user) {
+        throw new AppError("Authentication failed", 401);
+      }
+
+      const { id } = req.params;
+
+      const result = await this.orderService.confirmOrderReceived(
+        req.user.id,
+        id
+      );
+
+      res.status(200).send({
+        success: true,
+        message: "Order confirmed as received",
+        data: result,
+      });
+    } catch (error) {
+      logger.error("Error in confirmOrderReceived controller", error);
+      next(error);
+    }
+  };
 }
 
 export default OrderController;

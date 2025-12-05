@@ -1,0 +1,10 @@
+2025-12-03 12:57:37 [ERROR]: Error in registerBuyer controller Email already exists
+2025-12-03 12:57:38 [ERROR]: POST /api/auth/register/buyer: Email already exists {"code":400,"message":"Email already exists","isSuccess":false}
+2025-12-03 12:57:39 [ERROR]: Error in login controller Password is wrong
+2025-12-03 12:57:39 [ERROR]: POST /api/auth/login: Password is wrong {"code":400,"message":"Password is wrong","isSuccess":false}
+2025-12-03 12:57:39 [ERROR]: Error in login controller Account is not exist
+2025-12-03 12:57:39 [ERROR]: POST /api/auth/login: Account is not exist {"code":404,"message":"Account is not exist","isSuccess":false}
+2025-12-05 23:40:49 [ERROR]: GET /api/admin/settings: Forbidden: Admins only {"code":403,"message":"Forbidden: Admins only","isSuccess":false}
+2025-12-05 23:40:49 [ERROR]: GET /api/admin/settings: Forbidden: Admins only {"code":403,"message":"Forbidden: Admins only","isSuccess":false}
+2025-12-05 23:41:09 [ERROR]: GET /api/admin/settings: Forbidden: Admins only {"code":403,"message":"Forbidden: Admins only","isSuccess":false}
+2025-12-05 23:41:09 [ERROR]: GET /api/admin/settings: Forbidden: Admins only {"code":403,"message":"Forbidden: Admins only","isSuccess":false}

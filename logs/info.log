@@ -1,0 +1,477 @@
+2025-12-03 12:49:32 [INFO]: GET /api/stats
+2025-12-03 12:49:32 [INFO]: GET /api/products
+2025-12-03 12:49:32 [INFO]: GET /api/community
+2025-12-03 12:49:54 [INFO]: POST /api/auth/login
+2025-12-03 12:49:54 [INFO]: Processing login for: admin@starpearl.com
+2025-12-03 12:49:54 [INFO]: GET /api/admin/stats
+2025-12-03 12:49:55 [INFO]: GET /api/admin/stats
+2025-12-03 12:50:06 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:50:06 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:50:07 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:50:07 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:50:08 [INFO]: GET /api/admin/stats
+2025-12-03 12:50:08 [INFO]: GET /api/admin/stats
+2025-12-03 12:50:21 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:50:22 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:51:00 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:00 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:01 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:51:01 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:51:32 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:32 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:33 [INFO]: GET /api/admin/stats
+2025-12-03 12:51:33 [INFO]: GET /api/admin/stats
+2025-12-03 12:51:34 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:34 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:35 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:51:36 [INFO]: GET /api/admin/withdrawals/pending
+2025-12-03 12:51:37 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:37 [INFO]: GET /api/admin/stores/pending
+2025-12-03 12:51:39 [INFO]: GET /api/admin/stats
+2025-12-03 12:51:39 [INFO]: GET /api/admin/stats
+2025-12-03 12:57:36 [INFO]: GET /
+2025-12-03 12:57:36 [INFO]: GET /transaction
+2025-12-03 12:57:36 [INFO]: POST /api/auth/register/buyer
+2025-12-03 12:57:36 [INFO]: Registering buyer: newbuyer@example.com
+2025-12-03 12:57:37 [INFO]: POST /api/auth/register/seller
+2025-12-03 12:57:37 [INFO]: Registering seller: newseller@example.com
+2025-12-03 12:57:37 [INFO]: POST /api/auth/register/buyer
+2025-12-03 12:57:37 [INFO]: Registering buyer: testbuyer@example.com
+2025-12-03 12:57:38 [INFO]: POST /api/auth/login
+2025-12-03 12:57:38 [INFO]: Processing login for: testbuyer@example.com
+2025-12-03 12:57:38 [INFO]: POST /api/auth/login
+2025-12-03 12:57:38 [INFO]: Processing login for: testseller@example.com
+2025-12-03 12:57:38 [INFO]: POST /api/auth/login
+2025-12-03 12:57:38 [INFO]: Processing login for: testbuyer@example.com
+2025-12-03 12:57:39 [INFO]: POST /api/auth/login
+2025-12-03 12:57:39 [INFO]: Processing login for: no-user@example.com
+2025-12-03 19:31:58 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:08 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:09 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:10 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:10 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:10 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:10 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:10 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:11 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:11 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:20 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:41 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:42 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:54 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:54 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:54 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:55 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:55 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:55 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:55 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:56 [INFO]: POST /api/auth/signin
+2025-12-03 19:32:56 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:44 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:45 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:45 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:45 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:46 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:46 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:46 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:46 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:46 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:47 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:47 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:47 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:47 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:47 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:48 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:48 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:48 [INFO]: POST /api/auth/signin
+2025-12-03 19:33:48 [INFO]: POST /api/auth/signin
+2025-12-03 19:36:19 [INFO]: POST /api/auth/signin
+2025-12-03 19:36:21 [INFO]: POST /api/auth/signin
+2025-12-03 19:36:29 [INFO]: POST /api/auth/signin
+2025-12-03 19:36:29 [INFO]: POST /api/auth/signin
+2025-12-03 19:36:29 [INFO]: POST /api/auth/signin
+2025-12-03 19:36:29 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:18 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:18 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:19 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:19 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:19 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:19 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:19 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:20 [INFO]: POST /api/auth/signin
+2025-12-03 19:37:20 [INFO]: POST /api/auth/signin
+2025-12-05 21:33:15 [INFO]: GET /api/stats
+2025-12-05 21:33:15 [INFO]: GET /api/products
+2025-12-05 21:33:15 [INFO]: GET /api/community
+2025-12-05 21:33:38 [INFO]: POST /api/auth/login
+2025-12-05 21:33:38 [INFO]: Processing login for: admin@starpearl.com
+2025-12-05 21:33:40 [INFO]: GET /api/admin/stats
+2025-12-05 21:33:40 [INFO]: GET /api/admin/stats
+2025-12-05 23:29:59 [INFO]: GET /api/stats
+2025-12-05 23:29:59 [INFO]: GET /api/products
+2025-12-05 23:29:59 [INFO]: GET /api/community
+2025-12-05 23:30:05 [INFO]: GET /api/products
+2025-12-05 23:34:34 [INFO]: GET /api/products
+2025-12-05 23:34:50 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:34:50 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:34:50 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:34:50 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:35:17 [INFO]: GET /api/products
+2025-12-05 23:35:25 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:35:25 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:35:25 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:35:25 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:38:40 [INFO]: GET /api/stats
+2025-12-05 23:38:40 [INFO]: GET /api/products
+2025-12-05 23:38:40 [INFO]: GET /api/community
+2025-12-05 23:38:40 [INFO]: GET /api/products
+2025-12-05 23:38:40 [INFO]: GET /api/stats
+2025-12-05 23:38:40 [INFO]: GET /api/community
+2025-12-05 23:38:42 [INFO]: GET /api/community
+2025-12-05 23:38:42 [INFO]: GET /api/community
+2025-12-05 23:40:07 [INFO]: POST /api/auth/login
+2025-12-05 23:40:07 [INFO]: Processing login for: buyer@test.com
+2025-12-05 23:40:08 [INFO]: GET /api/stats
+2025-12-05 23:40:08 [INFO]: GET /api/products
+2025-12-05 23:40:08 [INFO]: GET /api/community
+2025-12-05 23:40:08 [INFO]: GET /api/products
+2025-12-05 23:40:09 [INFO]: GET /api/community
+2025-12-05 23:40:09 [INFO]: GET /api/stats
+2025-12-05 23:40:14 [INFO]: GET /api/products
+2025-12-05 23:40:22 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:40:22 [INFO]: GET /api/wishlist
+2025-12-05 23:40:22 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:40:22 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:40:22 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:40:22 [INFO]: GET /api/wishlist
+2025-12-05 23:40:29 [INFO]: POST /api/cart
+2025-12-05 23:40:29 [INFO]: Attempting to add 1 of product cmit34d0z000qh9rsxaaaxf5k for user cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:40:29 [INFO]: Product cmit34d0z000qh9rsxaaaxf5k not in cart, creating new cart item.
+2025-12-05 23:40:35 [INFO]: GET /api/cart
+2025-12-05 23:40:35 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:40:35 [INFO]: GET /api/cart
+2025-12-05 23:40:35 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:40:49 [INFO]: GET /api/addresses
+2025-12-05 23:40:49 [INFO]: GET /api/admin/settings
+2025-12-05 23:40:49 [INFO]: GET /api/cart
+2025-12-05 23:40:49 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:40:49 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:40:49 [INFO]: GET /api/admin/settings
+2025-12-05 23:40:49 [INFO]: GET /api/addresses
+2025-12-05 23:40:49 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:40:50 [INFO]: GET /api/cart
+2025-12-05 23:40:50 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:01 [INFO]: GET /api/cart
+2025-12-05 23:41:01 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:01 [INFO]: GET /api/cart
+2025-12-05 23:41:02 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:08 [INFO]: GET /api/addresses
+2025-12-05 23:41:08 [INFO]: GET /api/cart
+2025-12-05 23:41:08 [INFO]: GET /api/admin/settings
+2025-12-05 23:41:09 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:09 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:09 [INFO]: GET /api/admin/settings
+2025-12-05 23:41:09 [INFO]: GET /api/addresses
+2025-12-05 23:41:09 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:09 [INFO]: GET /api/cart
+2025-12-05 23:41:09 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:17 [INFO]: POST /api/checkout
+2025-12-05 23:41:17 [INFO]: Processing createOrder for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:17 [INFO]: Starting order transaction for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:41:17 [INFO]: Transaction successful. Order created: cmit3dg3f0003h9mgvmb9b9uo
+2025-12-05 23:41:17 [INFO]: Generated Snap Token for order cmit3dg3f0003h9mgvmb9b9uo: 13312eb7-5739-4841-ad76-f9c11b851c87
+2025-12-05 23:43:00 [INFO]: GET /api/addresses
+2025-12-05 23:43:00 [INFO]: GET /api/cart
+2025-12-05 23:43:01 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:01 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:01 [INFO]: GET /api/addresses
+2025-12-05 23:43:01 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:01 [INFO]: GET /api/cart
+2025-12-05 23:43:01 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:15 [INFO]: GET /api/addresses
+2025-12-05 23:43:15 [INFO]: GET /api/cart
+2025-12-05 23:43:15 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:15 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:15 [INFO]: GET /api/addresses
+2025-12-05 23:43:16 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:16 [INFO]: GET /api/cart
+2025-12-05 23:43:16 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:32 [INFO]: GET /api/cart
+2025-12-05 23:43:32 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:32 [INFO]: GET /api/cart
+2025-12-05 23:43:33 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:40 [INFO]: GET /api/products
+2025-12-05 23:43:48 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:43:48 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:43:48 [INFO]: GET /api/wishlist
+2025-12-05 23:43:48 [INFO]: GET /api/reviews/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:43:48 [INFO]: GET /api/products/cmit34d0z000qh9rsxaaaxf5k
+2025-12-05 23:43:48 [INFO]: GET /api/wishlist
+2025-12-05 23:43:56 [INFO]: POST /api/cart
+2025-12-05 23:43:56 [INFO]: Attempting to add 1 of product cmit34d0z000qh9rsxaaaxf5k for user cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:43:56 [INFO]: Product cmit34d0z000qh9rsxaaaxf5k not in cart, creating new cart item.
+2025-12-05 23:44:02 [INFO]: GET /api/cart
+2025-12-05 23:44:03 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:03 [INFO]: GET /api/cart
+2025-12-05 23:44:03 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:10 [INFO]: GET /api/addresses
+2025-12-05 23:44:10 [INFO]: GET /api/cart
+2025-12-05 23:44:10 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:10 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:10 [INFO]: GET /api/addresses
+2025-12-05 23:44:10 [INFO]: Fetching addresses for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:10 [INFO]: GET /api/cart
+2025-12-05 23:44:10 [INFO]: Fetching cart for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:17 [INFO]: POST /api/checkout
+2025-12-05 23:44:18 [INFO]: Processing createOrder for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:18 [INFO]: Starting order transaction for user: cmit34d6j000vh9rshf5q0ahq
+2025-12-05 23:44:18 [INFO]: Transaction successful. Order created: cmit3hbuc0008h9mgwnol7tis
+2025-12-05 23:44:18 [INFO]: Generated Snap Token for order cmit3hbuc0008h9mgwnol7tis: 8ba7f2fd-40f8-4f8c-8f73-75de6b93498e
+2025-12-05 23:45:10 [INFO]: POST /api/auth/login
+2025-12-05 23:45:10 [INFO]: Processing login for: seller@test.com
+2025-12-05 23:45:11 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:45:11 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:45:13 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:45:13 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:45:19 [INFO]: GET /api/products/my-products
+2025-12-05 23:45:19 [INFO]: GET /api/products/my-products
+2025-12-05 23:46:55 [INFO]: GET /api/categories
+2025-12-05 23:46:55 [INFO]: GET /api/attributes
+2025-12-05 23:46:56 [INFO]: GET /api/categories
+2025-12-05 23:46:56 [INFO]: GET /api/attributes
+2025-12-05 23:47:28 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:47:28 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:47:29 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:47:29 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:47:36 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:47:36 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:47:36 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:47:36 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:51:23 [INFO]: GET /api/products
+2025-12-05 23:51:23 [INFO]: GET /api/products
+2025-12-05 23:51:33 [INFO]: GET /api/products
+2025-12-05 23:51:34 [INFO]: GET /api/products
+2025-12-05 23:51:35 [INFO]: GET /api/products
+2025-12-05 23:51:37 [INFO]: GET /api/products
+2025-12-05 23:51:38 [INFO]: GET /api/products
+2025-12-05 23:52:45 [INFO]: GET /api/stats
+2025-12-05 23:52:45 [INFO]: GET /api/community
+2025-12-05 23:52:45 [INFO]: GET /api/products
+2025-12-05 23:52:46 [INFO]: GET /api/products
+2025-12-05 23:52:50 [INFO]: GET /api/products
+2025-12-05 23:54:13 [INFO]: GET /api/products/cmit3pqa5001lh9scmjhzb55i
+2025-12-05 23:54:13 [INFO]: GET /api/reviews/cmit3pqa5001lh9scmjhzb55i
+2025-12-05 23:54:13 [INFO]: GET /api/wishlist
+2025-12-05 23:54:13 [INFO]: GET /api/reviews/cmit3pqa5001lh9scmjhzb55i
+2025-12-05 23:54:13 [INFO]: GET /api/products/cmit3pqa5001lh9scmjhzb55i
+2025-12-05 23:54:13 [INFO]: GET /api/wishlist
+2025-12-05 23:54:15 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:54:15 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:54:16 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:54:16 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:54:18 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:54:18 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:54:18 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:54:18 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:54:22 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:54:22 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:54:23 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:54:23 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:54:24 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:54:25 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:54:25 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:54:25 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:20 [INFO]: GET /api/stats
+2025-12-05 23:55:20 [INFO]: GET /api/community
+2025-12-05 23:55:20 [INFO]: GET /api/products
+2025-12-05 23:55:20 [INFO]: GET /api/products
+2025-12-05 23:55:20 [INFO]: GET /api/community
+2025-12-05 23:55:20 [INFO]: GET /api/stats
+2025-12-05 23:55:23 [INFO]: GET /api/products
+2025-12-05 23:55:23 [INFO]: GET /api/products
+2025-12-05 23:55:25 [INFO]: GET /api/products/cmit3pq90001hh9scp3bas3vv
+2025-12-05 23:55:25 [INFO]: GET /api/reviews/cmit3pq90001hh9scp3bas3vv
+2025-12-05 23:55:25 [INFO]: GET /api/wishlist
+2025-12-05 23:55:25 [INFO]: GET /api/reviews/cmit3pq90001hh9scp3bas3vv
+2025-12-05 23:55:25 [INFO]: GET /api/products/cmit3pq90001hh9scp3bas3vv
+2025-12-05 23:55:25 [INFO]: GET /api/wishlist
+2025-12-05 23:55:34 [INFO]: POST /api/cart
+2025-12-05 23:55:34 [INFO]: Attempting to add 1 of product cmit3pq90001hh9scp3bas3vv for user cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:34 [INFO]: No active cart found for user cmit34cvd000mh9rse9mnp9mj, creating new one.
+2025-12-05 23:55:34 [INFO]: Product cmit3pq90001hh9scp3bas3vv not in cart, creating new cart item.
+2025-12-05 23:55:36 [INFO]: GET /api/cart
+2025-12-05 23:55:36 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:36 [INFO]: GET /api/cart
+2025-12-05 23:55:36 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:40 [INFO]: PATCH /api/cart/cmit3vtfc0005h90ksigc9x41
+2025-12-05 23:55:40 [INFO]: Attempting to update item cmit3vtfc0005h90ksigc9x41 to quantity 2 for user cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:40 [INFO]: GET /api/cart
+2025-12-05 23:55:40 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:41 [INFO]: PATCH /api/cart/cmit3vtfc0005h90ksigc9x41
+2025-12-05 23:55:41 [INFO]: Attempting to update item cmit3vtfc0005h90ksigc9x41 to quantity 3 for user cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:42 [INFO]: GET /api/cart
+2025-12-05 23:55:42 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:43 [INFO]: PATCH /api/cart/cmit3vtfc0005h90ksigc9x41
+2025-12-05 23:55:43 [INFO]: Attempting to update item cmit3vtfc0005h90ksigc9x41 to quantity 4 for user cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:43 [INFO]: GET /api/cart
+2025-12-05 23:55:43 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:44 [INFO]: PATCH /api/cart/cmit3vtfc0005h90ksigc9x41
+2025-12-05 23:55:44 [INFO]: Attempting to update item cmit3vtfc0005h90ksigc9x41 to quantity 5 for user cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:55 [INFO]: GET /api/stats
+2025-12-05 23:55:55 [INFO]: GET /api/community
+2025-12-05 23:55:55 [INFO]: GET /api/products
+2025-12-05 23:55:56 [INFO]: GET /api/community
+2025-12-05 23:55:56 [INFO]: GET /api/products
+2025-12-05 23:55:56 [INFO]: GET /api/stats
+2025-12-05 23:55:57 [INFO]: GET /api/cart
+2025-12-05 23:55:57 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:57 [INFO]: GET /api/cart
+2025-12-05 23:55:58 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:59 [INFO]: GET /api/cart
+2025-12-05 23:55:59 [INFO]: GET /api/addresses
+2025-12-05 23:55:59 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:59 [INFO]: Fetching addresses for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:59 [INFO]: GET /api/addresses
+2025-12-05 23:55:59 [INFO]: Fetching addresses for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:55:59 [INFO]: GET /api/cart
+2025-12-05 23:55:59 [INFO]: Fetching cart for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:56:09 [INFO]: GET /api/stats
+2025-12-05 23:56:09 [INFO]: GET /api/products
+2025-12-05 23:56:09 [INFO]: GET /api/community
+2025-12-05 23:56:09 [INFO]: GET /api/products
+2025-12-05 23:56:09 [INFO]: GET /api/community
+2025-12-05 23:56:09 [INFO]: GET /api/stats
+2025-12-05 23:58:24 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:58:24 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:58:25 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:58:25 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:58:25 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:58:26 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:58:26 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:58:26 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:58:46 [INFO]: GET /api/products
+2025-12-05 23:58:46 [INFO]: GET /api/stats
+2025-12-05 23:58:46 [INFO]: GET /api/community
+2025-12-05 23:58:46 [INFO]: GET /api/products
+2025-12-05 23:58:46 [INFO]: GET /api/stats
+2025-12-05 23:58:46 [INFO]: GET /api/community
+2025-12-05 23:58:56 [INFO]: GET /api/community
+2025-12-05 23:58:57 [INFO]: GET /api/community
+2025-12-05 23:59:22 [INFO]: GET /api/products
+2025-12-05 23:59:23 [INFO]: GET /api/products
+2025-12-05 23:59:39 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:59:39 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:59:40 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:59:40 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:59:44 [INFO]: GET /api/stores/my-store
+2025-12-05 23:59:44 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:59:45 [INFO]: GET /api/stores/my-store
+2025-12-05 23:59:45 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:59:49 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:59:49 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:59:49 [INFO]: GET /api/stores/dashboard/stats
+2025-12-05 23:59:50 [INFO]: Fetching store for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:59:55 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:59:55 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-05 23:59:56 [INFO]: GET /api/orders/store-orders
+2025-12-05 23:59:56 [INFO]: Fetching store orders for user: cmit34cvd000mh9rse9mnp9mj
+2025-12-06 00:00:55 [INFO]: GET /api/community
+2025-12-06 00:00:55 [INFO]: GET /api/community
+2025-12-06 00:01:02 [INFO]: POST /api/community/cmit42jr0001jh9kc0n0z4jkt/like
+2025-12-06 00:01:03 [INFO]: GET /api/community
+2025-12-06 00:01:03 [INFO]: POST /api/community/cmit42jr0001jh9kc0n0z4jkt/like
+2025-12-06 00:01:04 [INFO]: GET /api/community
+2025-12-06 00:01:07 [INFO]: POST /api/community/cmit42ksr004th9kcaw61bksg/like
+2025-12-06 00:01:07 [INFO]: GET /api/community
+2025-12-06 00:01:19 [INFO]: GET /api/stats
+2025-12-06 00:01:19 [INFO]: GET /api/products
+2025-12-06 00:01:19 [INFO]: GET /api/community
+2025-12-06 00:01:19 [INFO]: GET /api/products
+2025-12-06 00:01:19 [INFO]: GET /api/stats
+2025-12-06 00:01:19 [INFO]: GET /api/community
+2025-12-06 00:01:36 [INFO]: GET /api/community
+2025-12-06 00:01:36 [INFO]: GET /api/community
+2025-12-06 00:01:49 [INFO]: GET /api/products
+2025-12-06 00:01:49 [INFO]: GET /api/products
+2025-12-06 00:04:18 [INFO]: GET /api/stats
+2025-12-06 00:04:18 [INFO]: GET /api/products
+2025-12-06 00:04:18 [INFO]: GET /api/community
+2025-12-06 00:04:18 [INFO]: GET /api/products
+2025-12-06 00:04:18 [INFO]: GET /api/community
+2025-12-06 00:04:18 [INFO]: GET /api/stats
+2025-12-06 00:04:21 [INFO]: GET /api/community
+2025-12-06 00:04:22 [INFO]: GET /api/community
+2025-12-06 00:04:24 [INFO]: GET /api/stats
+2025-12-06 00:04:24 [INFO]: GET /api/products
+2025-12-06 00:04:24 [INFO]: GET /api/community
+2025-12-06 00:04:24 [INFO]: GET /api/products
+2025-12-06 00:04:24 [INFO]: GET /api/community
+2025-12-06 00:04:24 [INFO]: GET /api/stats
+2025-12-06 00:04:26 [INFO]: GET /api/products
+2025-12-06 00:04:26 [INFO]: GET /api/products
+2025-12-06 00:04:28 [INFO]: GET /api/stats
+2025-12-06 00:04:28 [INFO]: GET /api/products
+2025-12-06 00:04:28 [INFO]: GET /api/community
+2025-12-06 00:04:28 [INFO]: GET /api/products
+2025-12-06 00:04:28 [INFO]: GET /api/community
+2025-12-06 00:04:29 [INFO]: GET /api/stats
+2025-12-06 00:06:12 [INFO]: GET /api/stats
+2025-12-06 00:06:12 [INFO]: GET /api/products
+2025-12-06 00:06:12 [INFO]: GET /api/community
+2025-12-06 00:06:19 [INFO]: GET /api/community
+2025-12-06 00:06:19 [INFO]: GET /api/community
+2025-12-06 00:06:21 [INFO]: GET /api/products
+2025-12-06 00:06:21 [INFO]: GET /api/products
+2025-12-06 00:06:23 [INFO]: GET /api/reviews/cmit3pqap001nh9scs0fopt15
+2025-12-06 00:06:23 [INFO]: GET /api/products/cmit3pqap001nh9scs0fopt15
+2025-12-06 00:06:23 [INFO]: GET /api/reviews/cmit3pqap001nh9scs0fopt15
+2025-12-06 00:06:23 [INFO]: GET /api/products/cmit3pqap001nh9scs0fopt15
+2025-12-06 00:06:36 [INFO]: GET /api/products
+2025-12-06 00:06:36 [INFO]: GET /api/products
+2025-12-06 00:06:38 [INFO]: GET /api/reviews/cmit3pq8h001fh9sc6v23m8el
+2025-12-06 00:06:38 [INFO]: GET /api/products/cmit3pq8h001fh9sc6v23m8el
+2025-12-06 00:06:38 [INFO]: GET /api/reviews/cmit3pq8h001fh9sc6v23m8el
+2025-12-06 00:06:38 [INFO]: GET /api/products/cmit3pq8h001fh9sc6v23m8el
+2025-12-06 00:06:45 [INFO]: GET /api/products
+2025-12-06 00:06:46 [INFO]: GET /api/products
+2025-12-06 00:08:18 [INFO]: GET /api/products
+2025-12-06 00:08:31 [INFO]: GET /api/products/cmit3pqa5001lh9scmjhzb55i
+2025-12-06 00:08:31 [INFO]: GET /api/reviews/cmit3pqa5001lh9scmjhzb55i
+2025-12-06 00:08:31 [INFO]: GET /api/products/cmit3pqa5001lh9scmjhzb55i
+2025-12-06 00:08:32 [INFO]: GET /api/reviews/cmit3pqa5001lh9scmjhzb55i
+2025-12-06 00:08:48 [INFO]: GET /api/stats
+2025-12-06 00:08:48 [INFO]: GET /api/products
+2025-12-06 00:08:48 [INFO]: GET /api/community
+2025-12-06 00:08:48 [INFO]: GET /api/products
+2025-12-06 00:08:48 [INFO]: GET /api/community
+2025-12-06 00:08:48 [INFO]: GET /api/stats
+2025-12-06 00:09:49 [INFO]: GET /api/products
+2025-12-06 00:09:49 [INFO]: GET /api/products
+2025-12-06 00:11:52 [INFO]: GET /api/categories
+2025-12-06 00:11:52 [INFO]: GET /api/products
+2025-12-06 00:11:54 [INFO]: GET /api/categories
+2025-12-06 00:11:54 [INFO]: GET /api/products
+2025-12-06 00:12:17 [INFO]: GET /api/categories
+2025-12-06 00:12:17 [INFO]: GET /api/products
+2025-12-06 00:12:21 [INFO]: GET /api/categories
+2025-12-06 00:12:21 [INFO]: GET /api/products
+2025-12-06 00:12:50 [INFO]: GET /api/products
+2025-12-06 00:12:50 [INFO]: GET /api/categories
+2025-12-06 00:14:32 [INFO]: GET /api/categories
+2025-12-06 00:14:32 [INFO]: GET /api/products
+2025-12-06 00:14:32 [INFO]: GET /api/categories
+2025-12-06 00:14:32 [INFO]: GET /api/products
+2025-12-06 00:16:24 [INFO]: GET /api/products
+2025-12-06 00:16:26 [INFO]: GET /api/products
+2025-12-06 00:16:28 [INFO]: GET /api/products
+2025-12-06 00:16:30 [INFO]: GET /api/products
+2025-12-06 00:16:32 [INFO]: GET /api/products
+2025-12-06 00:20:09 [INFO]: GET /api/stats
+2025-12-06 00:20:09 [INFO]: GET /api/products
+2025-12-06 00:20:09 [INFO]: GET /api/community
+2025-12-06 00:20:10 [INFO]: GET /api/products
+2025-12-06 00:20:10 [INFO]: GET /api/community
+2025-12-06 00:20:10 [INFO]: GET /api/stats
+2025-12-06 00:20:20 [INFO]: GET /api/community
+2025-12-06 00:20:20 [INFO]: GET /api/community
+2025-12-06 00:22:59 [INFO]: GET /api/community

@@ -21,6 +21,9 @@ class CommunityRouter {
       this.controller.getPosts
     );
 
+    // Public route to get comments for a post
+    this.route.get("/:postId/comments", this.controller.getComments);
+
     this.route.use(this.authMiddleware.verifyToken);
 
     this.route.post("/", this.controller.createPost);

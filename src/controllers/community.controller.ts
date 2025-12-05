@@ -104,6 +104,24 @@ class CommunityController {
       next(error);
     }
   };
+
+  public getComments = async (
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { postId } = req.params;
+      const comments = await this.communityService.getComments(postId);
+
+      res.status(200).send({
+        success: true,
+        data: comments,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default CommunityController;

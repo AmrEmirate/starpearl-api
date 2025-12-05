@@ -165,4 +165,77 @@ export class OrderService {
     logger.info(`System updating order status ${orderId} to ${status}`);
     return this.orderRepository.updateOrderStatus(orderId, status);
   }
+
+  public async confirmOrderReceived(
+    userId: string,
+    orderId: string
+  ): Promise<Order> {
+    logger.info(`Buyer ${userId} confirming order ${orderId} as received`);
+
+    // Verify the order belongs to this buyer
+    const order = await prisma.order.findFirst({
+      where: { id: orderId, userId: userId },
+      include: {
+        items: {
+          include: {
+            product: {
+              select: { storeId: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (!order) {
+      throw new AppError("Order not found or does not belong to you", 404);
+    }
+
+    // Check if order is in SHIPPED status
+    if (order.status !== "SHIPPED") {
+      throw new AppError(
+        "Order can only be confirmed when status is SHIPPED",
+        400
+      );
+    }
+
+    // Get unique store IDs from order items
+    const storeIds = [...new Set(order.items.map((item) => item.storeId))];
+
+    // Calculate amount per store (subtotal only, excluding fees)
+    const storeAmounts = new Map<string, number>();
+    for (const item of order.items) {
+      const current = storeAmounts.get(item.storeId) || 0;
+      storeAmounts.set(
+        item.storeId,
+        current + Number(item.price) * item.quantity
+      );
+    }
+
+    // Update order status and transfer funds to sellers in transaction
+    const result = await prisma.$transaction(async (tx) => {
+      // Update order status to DELIVERED
+      const updatedOrder = await tx.order.update({
+        where: { id: orderId },
+        data: { status: "DELIVERED" },
+      });
+
+      // Transfer funds to each store's balance
+      for (const [storeId, amount] of storeAmounts) {
+        await tx.store.update({
+          where: { id: storeId },
+          data: {
+            balance: {
+              increment: amount,
+            },
+          },
+        });
+        logger.info(`Transferred ${amount} to store ${storeId}`);
+      }
+
+      return updatedOrder;
+    });
+
+    logger.info(`Order ${orderId} confirmed as received, funds transferred`);
+    return result;
+  }
 }
