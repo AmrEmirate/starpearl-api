@@ -6,4 +6,4 @@ node_modules
 
 # Seed files - exclude from version control
 prisma/seed-*.ts
-scripts/seed-*.ts
+scripts
