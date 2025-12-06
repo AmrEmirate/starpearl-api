@@ -3,3 +3,7 @@ node_modules
 .env
 
 /src/generated/prisma
+
+# Seed files - exclude from version control
+prisma/seed-*.ts
+scripts/seed-*.ts
