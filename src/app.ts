@@ -64,7 +64,7 @@ class App {
 
   private routes(): void {
     this.app.get("/", (req: Request, res: Response) => {
-      res.status(200).send("<h1>Starpearl API</h1>");
+      res.status(200).send("<h1>Welcome to Starpearl API</h1>");
     });
 
     const authRouter: AuthRouter = new AuthRouter();
