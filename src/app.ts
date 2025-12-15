@@ -3,6 +3,10 @@ dotenv.config();
 import "./config/passport";
 import passport from "passport";
 import cors from "cors";
+import helmet from "helmet";
+import hpp from "hpp";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
 import express, { Application, NextFunction, Request, Response } from "express";
 import AuthRouter from "./routers/auth.router";
 import logger from "./utils/logger";
@@ -40,6 +44,15 @@ class App {
 
   private configure(): void {
     this.app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
+    this.app.use(helmet());
+    this.app.use(compression());
+    this.app.use(hpp());
+    this.app.use(
+      rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 100, // Limit each IP to 100 requests per windowMs
+      })
+    );
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(passport.initialize());

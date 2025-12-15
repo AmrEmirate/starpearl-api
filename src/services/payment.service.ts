@@ -1,5 +1,5 @@
 import midtransClient from "midtrans-client";
-import { Order } from "../generated/prisma";
+import { Order } from "@prisma/client";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import crypto from "crypto";

@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Cart, CartItem, Product } from "../generated/prisma";
+import { Cart, CartItem, Product } from "@prisma/client";
 import logger from "../utils/logger";
 
 type CartItemWithProduct = CartItem & {

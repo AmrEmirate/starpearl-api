@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { StoreVoucher } from "../generated/prisma";
+import { StoreVoucher } from "@prisma/client";
 import AppError from "../utils/AppError";
 
 export class VoucherService {
@@ -22,7 +22,6 @@ export class VoucherService {
     if (existing) {
       throw new AppError("Voucher code already exists", 400);
     }
-
 
     return prisma.storeVoucher.create({
       data: {

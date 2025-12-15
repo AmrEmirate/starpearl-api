@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { StoreStatus, WithdrawalStatus } from "../generated/prisma";
+import { StoreStatus, WithdrawalStatus } from "@prisma/client";
 import AppError from "../utils/AppError";
 
 export class AdminService {

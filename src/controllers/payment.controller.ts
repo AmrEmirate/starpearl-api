@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { PaymentService } from "../services/payment.service";
 import { OrderRepository } from "../repositories/order.repository";
-import { OrderStatus } from "../generated/prisma";
+import { OrderStatus } from "@prisma/client";
 import logger from "../utils/logger";
 
 export class PaymentController {

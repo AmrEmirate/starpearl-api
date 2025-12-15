@@ -1,0 +1,13 @@
+2025-12-15 10:43:52 [INFO]: GET /
+2025-12-15 10:45:49 [INFO]: Registering buyer: test_reset@example.com
+2025-12-15 10:45:49 [INFO]: Requesting password reset for: test_reset@example.com
+2025-12-15 10:45:49 [INFO]: Processing login for: test_reset@example.com
+2025-12-15 10:46:04 [INFO]: Registering buyer: test_reset@example.com
+2025-12-15 10:46:04 [INFO]: Requesting password reset for: test_reset@example.com
+2025-12-15 10:46:04 [INFO]: Processing login for: test_reset@example.com
+2025-12-15 10:46:14 [INFO]: Registering buyer: test_reset@example.com
+2025-12-15 10:46:15 [INFO]: Requesting password reset for: test_reset@example.com
+2025-12-15 10:46:15 [INFO]: Processing login for: test_reset@example.com
+2025-12-15 10:46:35 [INFO]: Registering buyer: test_reset@example.com
+2025-12-15 10:46:35 [INFO]: Requesting password reset for: test_reset@example.com
+2025-12-15 10:46:35 [INFO]: Processing login for: test_reset@example.com

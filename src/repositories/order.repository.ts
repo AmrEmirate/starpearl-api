@@ -1,11 +1,5 @@
 import { prisma } from "../config/prisma";
-import {
-  Cart,
-  CartItem,
-  Order,
-  Product,
-  OrderStatus,
-} from "../generated/prisma";
+import { Cart, CartItem, Order, Product, OrderStatus } from "@prisma/client";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 

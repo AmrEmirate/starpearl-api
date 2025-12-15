@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Wishlist, WishlistItem } from "../generated/prisma";
+import { Wishlist, WishlistItem } from "@prisma/client";
 import logger from "../utils/logger";
 
 export class WishlistRepository {

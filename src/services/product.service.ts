@@ -1,11 +1,11 @@
 import { prisma } from "../config/prisma";
-import { Product } from "../generated/prisma";
+import { Product } from "@prisma/client";
 import { ProductRepository } from "../repositories/product.repository";
 import { StoreRepository } from "../repositories/store.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { Decimal } from "@prisma/client/runtime/library";
-import { Prisma } from "../generated/prisma";
+import { Prisma } from "@prisma/client";
 
 export class ProductService {
   private productRepository: ProductRepository;

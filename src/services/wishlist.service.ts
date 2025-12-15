@@ -1,6 +1,6 @@
 import { WishlistRepository } from "../repositories/wishlist.repository";
 import { ProductRepository } from "../repositories/product.repository";
-import { Wishlist, WishlistItem } from "../generated/prisma";
+import { Wishlist, WishlistItem } from "@prisma/client";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 

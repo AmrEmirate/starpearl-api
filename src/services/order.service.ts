@@ -1,4 +1,4 @@
-import { Order } from "../generated/prisma";
+import { Order } from "@prisma/client";
 import { OrderRepository, FullCart } from "../repositories/order.repository";
 import { CartRepository } from "../repositories/cart.repository"; // Kita perlu ini
 import { prisma } from "../config/prisma"; // Kita perlu ini untuk cek alamat

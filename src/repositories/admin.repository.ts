@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Store, StoreStatus, User, CommunityPost } from "../generated/prisma";
+import { Store, StoreStatus, User, CommunityPost } from "@prisma/client";
 import logger from "../utils/logger";
 
 export class AdminRepository {

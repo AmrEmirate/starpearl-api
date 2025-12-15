@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Store } from "../generated/prisma";
+import { Store } from "@prisma/client";
 import logger from "../utils/logger";
 
 export class StoreRepository {

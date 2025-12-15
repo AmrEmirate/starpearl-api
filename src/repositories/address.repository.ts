@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Address } from "../generated/prisma";
+import { Address } from "@prisma/client";
 import logger from "../utils/logger";
 
 type CreateAddressInput = Omit<Address, "id" | "createdAt" | "updatedAt">;
@@ -18,7 +18,7 @@ export class AddressRepository {
           data: { isDefault: false },
         });
       }
-      
+
       return await prisma.address.create({
         data,
       });
@@ -48,7 +48,10 @@ export class AddressRepository {
   /**
    * Menemukan alamat spesifik milik user.
    */
-  async findAddressById(addressId: string, userId: string): Promise<Address | null> {
+  async findAddressById(
+    addressId: string,
+    userId: string
+  ): Promise<Address | null> {
     try {
       return await prisma.address.findFirst({
         where: { id: addressId, userId: userId },
@@ -62,7 +65,11 @@ export class AddressRepository {
   /**
    * Memperbarui data alamat.
    */
-  async updateAddress(addressId: string, data: UpdateAddressInput, userId: string): Promise<Address> {
+  async updateAddress(
+    addressId: string,
+    data: UpdateAddressInput,
+    userId: string
+  ): Promise<Address> {
     try {
       if (data.isDefault) {
         await prisma.address.updateMany({
@@ -70,7 +77,7 @@ export class AddressRepository {
           data: { isDefault: false },
         });
       }
-      
+
       return await prisma.address.update({
         where: { id: addressId },
         data,

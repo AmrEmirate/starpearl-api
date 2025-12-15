@@ -1,6 +1,6 @@
 import { ReviewRepository } from "../repositories/review.repository";
 import { OrderRepository } from "../repositories/order.repository";
-import { Review } from "../generated/prisma";
+import { Review } from "@prisma/client";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { prisma } from "../config/prisma";

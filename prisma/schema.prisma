@@ -1,12 +1,393 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                   String              @id @default(cuid())
+  email                String              @unique
+  name                 String?
+  passwordHash         String?
+  resetPasswordToken   String?             @unique
+  resetPasswordExpires DateTime?
+  googleId             String?             @unique
+  avatarUrl            String?
+  role                 Role                @default(BUYER)
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  addresses            Address[]
+  buyerProfile         BuyerProfile?
+  cart                 Cart?
+  sentMessages         ChatMessage[]       @relation("SenderMessages")
+  buyerChatRooms       ChatRoom[]          @relation("BuyerChats")
+  communityComments    CommunityComment[]
+  communityPosts       CommunityPost[]
+  communityLikes       CommunityPostLike[]
+  disputes             Dispute[]
+  orders               Order[]             @relation("BuyerOrders")
+  reviews              Review[]
+  sellerProfile        Store?
+  storeFollows         StoreFollow[]       @relation("UserFollowing")
+  wishlist             Wishlist?
+}
+
+model BuyerProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Address {
+  id          String   @id @default(cuid())
+  userId      String
+  label       String
+  addressLine String
+  city        String
+  state       String?
+  zipCode     String
+  phone       String
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders      Order[]
+}
+
+model Store {
+  id                 String           @id @default(cuid())
+  userId             String           @unique
+  name               String           @unique
+  description        String?
+  logoUrl            String?
+  bannerUrl          String?
+  status             StoreStatus      @default(PENDING)
+  balance            Decimal          @default(0)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  idCardUrl          String?
+  businessLicenseUrl String?
+  chatRooms          ChatRoom[]       @relation("StoreChats")
+  disputes           Dispute[]
+  products           Product[]
+  reviewResponses    ReviewResponse[]
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followers          StoreFollow[]    @relation("StoreFollowers")
+  vouchers           StoreVoucher[]
+  withdrawals        Withdrawal[]
+}
+
+model Product {
+  id            String                       @id @default(cuid())
+  storeId       String
+  name          String
+  description   String
+  price         Decimal
+  stock         Int                          @default(0)
+  imageUrls     String[]
+  categoryId    String
+  isActive      Boolean                      @default(true)
+  createdAt     DateTime                     @default(now())
+  updatedAt     DateTime                     @updatedAt
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
+  category      Category                     @relation(fields: [categoryId], references: [id])
+  store         Store                        @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  attributes    ProductAttributeAssignment[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  slug      String     @unique
+  imageUrl  String?
+  parentId  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  parent    Category?  @relation("SubCategories", fields: [parentId], references: [id])
+  children  Category[] @relation("SubCategories")
+  products  Product[]
+}
+
+model Attribute {
+  id     String           @id @default(cuid())
+  name   String           @unique
+  values AttributeValue[]
+}
+
+model AttributeValue {
+  id          String                       @id @default(cuid())
+  attributeId String
+  value       String
+  attribute   Attribute                    @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  products    ProductAttributeAssignment[]
+
+  @@unique([attributeId, value])
+}
+
+model ProductAttributeAssignment {
+  productId        String
+  attributeValueId String
+  attributeValue   AttributeValue @relation(fields: [attributeValueId], references: [id], onDelete: Cascade)
+  product          Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([productId, attributeValueId])
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+model Wishlist {
+  id     String         @id @default(cuid())
+  userId String         @unique
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items  WishlistItem[]
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  wishlistId String
+  productId  String
+  createdAt  DateTime @default(now())
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+
+  @@unique([wishlistId, productId])
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  userId            String
+  status            OrderStatus @default(PENDING_PAYMENT)
+  subtotal          Decimal
+  shippingFee       Decimal
+  serviceFee        Decimal
+  totalAmount       Decimal
+  shippingAddressId String
+  shippingResi      String?
+  logisticsOption   String
+  paymentMethod     String
+  paymentGatewayId  String?
+  paymentStatus     String      @default("PENDING")
+  paidAt            DateTime?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  disputes          Dispute[]
+  shippingAddress   Address     @relation(fields: [shippingAddressId], references: [id])
+  user              User        @relation("BuyerOrders", fields: [userId], references: [id])
+  items             OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  storeId   String
+  quantity  Int
+  price     Decimal
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([storeId])
+}
+
+model Review {
+  id        String          @id @default(cuid())
+  productId String
+  userId    String
+  rating    Int
+  content   String?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  response  ReviewResponse?
+}
+
+model ReviewResponse {
+  id        String   @id @default(cuid())
+  reviewId  String   @unique
+  storeId   String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+model StoreFollow {
+  id        String   @id @default(cuid())
+  userId    String
+  storeId   String
+  createdAt DateTime @default(now())
+  store     Store    @relation("StoreFollowers", fields: [storeId], references: [id], onDelete: Cascade)
+  user      User     @relation("UserFollowing", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, storeId])
+}
+
+model CommunityPost {
+  id        String              @id @default(cuid())
+  userId    String
+  content   String
+  imageUrl  String?
+  status    PostStatus          @default(PENDING)
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  comments  CommunityComment[]
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes     CommunityPostLike[]
+}
+
+model CommunityPostLike {
+  id        String        @id @default(cuid())
+  postId    String
+  userId    String
+  createdAt DateTime      @default(now())
+  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+}
+
+model CommunityComment {
+  id        String        @id @default(cuid())
+  postId    String
+  userId    String
+  content   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ChatRoom {
+  id        String        @id @default(cuid())
+  buyerId   String
+  storeId   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  messages  ChatMessage[]
+  buyer     User          @relation("BuyerChats", fields: [buyerId], references: [id], onDelete: Cascade)
+  store     Store         @relation("StoreChats", fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([buyerId, storeId])
+}
+
+model ChatMessage {
+  id         String   @id @default(cuid())
+  chatRoomId String
+  senderId   String
+  content    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  sender     User     @relation("SenderMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([chatRoomId])
+}
+
+model Withdrawal {
+  id          String           @id @default(cuid())
+  storeId     String
+  amount      Decimal
+  status      WithdrawalStatus @default(PENDING)
+  bankName    String
+  bankAccount String
+  bankUser    String
+  createdAt   DateTime         @default(now())
+  processedAt DateTime?
+  store       Store            @relation(fields: [storeId], references: [id])
+
+  @@index([storeId])
+}
+
+model PlatformPromotion {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  description   String?
+  discountType  String
+  discountValue Decimal
+  maxUses       Int?
+  currentUses   Int       @default(0)
+  expiresAt     DateTime?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+}
+
+model StoreVoucher {
+  id            String    @id @default(cuid())
+  storeId       String
+  code          String    @unique
+  description   String?
+  discountType  String
+  discountValue Decimal
+  minPurchase   Decimal   @default(0)
+  maxUses       Int?
+  currentUses   Int       @default(0)
+  expiresAt     DateTime?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  store         Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+model PlatformSettings {
+  id                 String   @id @default("singleton")
+  serviceFeeMin      Decimal  @default(50000)
+  serviceFeeRate     Decimal  @default(1000)
+  serviceFeeInterval Decimal  @default(100000)
+  updatedAt          DateTime @updatedAt
+}
+
+model HomepageContent {
+  id        String   @id @default(cuid())
+  type      String
+  title     String?
+  imageUrl  String
+  linkUrl   String?
+  productId String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Dispute {
+  id        String   @id @default(cuid())
+  orderId   String
+  buyerId   String
+  storeId   String
+  reason    String
+  amount    Decimal
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  buyer     User     @relation(fields: [buyerId], references: [id])
+  order     Order    @relation(fields: [orderId], references: [id])
+  store     Store    @relation(fields: [storeId], references: [id])
 }
 
 enum Role {
@@ -41,402 +422,4 @@ enum WithdrawalStatus {
   PENDING
   APPROVED
   REJECTED
-}
-
-model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  name         String?
-  passwordHash String?
-  googleId     String?  @unique
-  avatarUrl    String?
-  role         Role     @default(BUYER)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  buyerProfile  BuyerProfile?
-  sellerProfile Store?
-  addresses     Address[]
-  cart          Cart?
-  wishlist      Wishlist?
-  orders        Order[]            @relation("BuyerOrders")
-  reviews       Review[]
-  storeFollows  StoreFollow[]      @relation("UserFollowing")
-  
-  communityPosts    CommunityPost[]
-  communityComments CommunityComment[]
-  communityLikes    CommunityPostLike[]
-
-  buyerChatRooms ChatRoom[]      @relation("BuyerChats")
-  sentMessages   ChatMessage[]   @relation("SenderMessages")
-  disputes       Dispute[]
-}
-
-model BuyerProfile {
-  id     String @id @default(cuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Address {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  label       String
-  addressLine String
-  city        String
-  state       String?
-  zipCode     String
-  phone       String
-  isDefault   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  orders Order[]
-}
-
-model Store {
-  id          String      @id @default(cuid())
-  userId      String      @unique
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name        String      @unique
-  description String?     @db.Text
-  logoUrl     String?
-  bannerUrl   String?
-  status      StoreStatus @default(PENDING)
-  balance     Decimal     @default(0)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  
-  idCardUrl          String?
-  businessLicenseUrl String?
-
-  products     Product[]
-  vouchers     StoreVoucher[]
-  followers    StoreFollow[]  @relation("StoreFollowers")
-  withdrawals  Withdrawal[]
-  reviewResponses ReviewResponse[]
-  chatRooms    ChatRoom[]     @relation("StoreChats")
-  disputes     Dispute[]
-}
-
-model Product {
-  id          String   @id @default(cuid())
-  storeId     String
-  store       Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
-  name        String
-  description String   @db.Text
-  price       Decimal
-  stock       Int      @default(0)
-  imageUrls   String[]
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  attributes    ProductAttributeAssignment[]
-  cartItems     CartItem[]
-  wishlistItems WishlistItem[]
-  orderItems    OrderItem[]
-  reviews       Review[]
-}
-
-model Category {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  slug      String     @unique
-  imageUrl  String?
-  parentId  String?
-  parent    Category?  @relation("SubCategories", fields: [parentId], references: [id], onDelete: SetNull)
-  children  Category[] @relation("SubCategories")
-  products  Product[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-}
-
-model Attribute {
-  id     String   @id @default(cuid())
-  name   String   @unique
-  values AttributeValue[]
-}
-
-model AttributeValue {
-  id          String   @id @default(cuid())
-  attributeId String
-  attribute   Attribute @relation(fields: [attributeId], references: [id], onDelete: Cascade)
-  value       String
-  
-  products    ProductAttributeAssignment[]
-  
-  @@unique([attributeId, value])
-}
-
-model ProductAttributeAssignment {
-  productId      String
-  product        Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  attributeValueId String
-  attributeValue AttributeValue @relation(fields: [attributeValueId], references: [id], onDelete: Cascade)
-  
-  @@id([productId, attributeValueId])
-}
-
-model Cart {
-  id     String     @id @default(cuid())
-  userId String     @unique
-  user   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items  CartItem[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model CartItem {
-  id        String   @id @default(cuid())
-  cartId    String
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  quantity  Int
-  createdAt DateTime @default(now())
-
-  @@unique([cartId, productId])
-}
-
-model Wishlist {
-  id     String         @id @default(cuid())
-  userId String         @unique
-  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items  WishlistItem[]
-}
-
-model WishlistItem {
-  id         String   @id @default(cuid())
-  wishlistId String
-  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
-  productId  String
-  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  createdAt  DateTime @default(now())
-
-  @@unique([wishlistId, productId])
-}
-
-model Order {
-  id                String      @id @default(cuid())
-  userId            String
-  user              User        @relation("BuyerOrders", fields: [userId], references: [id])
-  status            OrderStatus @default(PENDING_PAYMENT)
-  
-  subtotal          Decimal
-  shippingFee       Decimal
-  serviceFee        Decimal
-  totalAmount       Decimal
-  
-  shippingAddressId String
-  shippingAddress   Address     @relation(fields: [shippingAddressId], references: [id], onDelete: Restrict)
-  shippingResi      String?
-  logisticsOption   String
-  
-  paymentMethod     String
-  paymentGatewayId  String?
-  paymentStatus     String   @default("PENDING")
-  paidAt            DateTime?
-  
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  
-  items             OrderItem[]
-  disputes          Dispute[]
-}
-
-model OrderItem {
-  id        String   @id @default(cuid())
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
-  storeId   String
-  quantity  Int
-  price     Decimal
-  
-  @@index([storeId])
-}
-
-model Review {
-  id        String   @id @default(cuid())
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  rating    Int
-  content   String?  @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  response ReviewResponse?
-}
-
-model ReviewResponse {
-  id        String   @id @default(cuid())
-  reviewId  String   @unique
-  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-  storeId   String
-  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
-  content   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model StoreFollow {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation("UserFollowing", fields: [userId], references: [id], onDelete: Cascade)
-  storeId   String
-  store     Store    @relation("StoreFollowers", fields: [storeId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-
-  @@unique([userId, storeId])
-}
-
-model CommunityPost {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content   String   @db.Text
-  imageUrl  String?
-  status    PostStatus @default(PENDING)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  likes     CommunityPostLike[]
-  comments  CommunityComment[]
-}
-
-model CommunityPostLike {
-  id        String   @id @default(cuid())
-  postId    String
-  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-
-  @@unique([postId, userId])
-}
-
-model CommunityComment {
-  id        String   @id @default(cuid())
-  postId    String
-  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model ChatRoom {
-  id        String   @id @default(cuid())
-  buyerId   String
-  buyer     User     @relation("BuyerChats", fields: [buyerId], references: [id], onDelete: Cascade)
-  storeId   String
-  store     Store    @relation("StoreChats", fields: [storeId], references: [id], onDelete: Cascade)
-  
-  messages  ChatMessage[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([buyerId, storeId])
-}
-
-model ChatMessage {
-  id         String   @id @default(cuid())
-  chatRoomId String
-  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
-  senderId   String
-  sender     User     @relation("SenderMessages", fields: [senderId], references: [id], onDelete: Cascade)
-  content    String   @db.Text
-  isRead     Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  
-  @@index([chatRoomId])
-}
-
-model Withdrawal {
-  id          String           @id @default(cuid())
-  storeId     String
-  store       Store            @relation(fields: [storeId], references: [id])
-  amount      Decimal
-  status      WithdrawalStatus @default(PENDING)
-  bankName    String
-  bankAccount String
-  bankUser    String
-  createdAt   DateTime         @default(now())
-  processedAt DateTime?
-  
-  @@index([storeId])
-}
-
-model PlatformPromotion {
-  id            String    @id @default(cuid())
-  code          String    @unique
-  description   String?
-  discountType  String
-  discountValue Decimal
-  maxUses       Int?
-  currentUses   Int       @default(0)
-  expiresAt     DateTime?
-  isActive      Boolean   @default(true)
-  createdAt     DateTime  @default(now())
-}
-
-model StoreVoucher {
-  id            String    @id @default(cuid())
-  storeId       String
-  store         Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
-  code          String    @unique
-  description   String?
-  discountType  String
-  discountValue Decimal
-  minPurchase   Decimal   @default(0)
-  maxUses       Int?
-  currentUses   Int       @default(0)
-  expiresAt     DateTime?
-  isActive      Boolean   @default(true)
-  createdAt     DateTime  @default(now())
-}
-
-model PlatformSettings {
-  id                 String  @id @default("singleton")
-  
-  serviceFeeMin      Decimal @default(50000)
-  serviceFeeRate     Decimal @default(1000)
-  serviceFeeInterval Decimal @default(100000)
-  
-  updatedAt          DateTime @updatedAt
-}
-
-model HomepageContent {
-  id        String   @id @default(cuid())
-  type      String
-  title     String?
-  imageUrl  String
-  linkUrl   String?
-  productId String?
-  order     Int      @default(0)
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-}
-
-model Dispute {
-  id        String   @id @default(cuid())
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id])
-  buyerId   String
-  buyer     User     @relation(fields: [buyerId], references: [id])
-  storeId   String
-  store     Store    @relation(fields: [storeId], references: [id])
-  reason    String
-  amount    Decimal
-  status    String   @default("PENDING") // PENDING, RESOLVED_REFUND, RESOLVED_RELEASE
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

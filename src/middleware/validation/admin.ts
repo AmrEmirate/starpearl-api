@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import AppError from "../../utils/AppError";
-import { StoreStatus } from "../../generated/prisma"; // Impor enum StoreStatus
+import { StoreStatus } from "@prisma/client"; // Impor enum StoreStatus
 
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -13,8 +13,11 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
 
 export const updateStoreStatusValidation = [
   body("status")
-    .notEmpty().withMessage("Status is required")
+    .notEmpty()
+    .withMessage("Status is required")
     .isIn(Object.values(StoreStatus)) // Pastikan statusnya valid
-    .withMessage(`Invalid status. Must be one of: ${Object.values(StoreStatus).join(", ")}`),
+    .withMessage(
+      `Invalid status. Must be one of: ${Object.values(StoreStatus).join(", ")}`
+    ),
   validationHandler,
 ];

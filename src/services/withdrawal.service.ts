@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Withdrawal } from "../generated/prisma";
+import { Withdrawal } from "@prisma/client";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 

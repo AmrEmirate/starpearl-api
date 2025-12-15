@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { User } from "../generated/prisma";
+import { User } from "@prisma/client";
 import logger from "../utils/logger";
 
 export class UserRepository {

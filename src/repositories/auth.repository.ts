@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { User, Store } from "../generated/prisma";
+import { User, Store } from "@prisma/client";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
@@ -16,7 +16,15 @@ export class AuthRepository {
   }
 
   async createUser(
-    data: Omit<User, "id" | "createdAt" | "updatedAt" | "avatarUrl">
+    data: Omit<
+      User,
+      | "id"
+      | "createdAt"
+      | "updatedAt"
+      | "avatarUrl"
+      | "resetPasswordToken"
+      | "resetPasswordExpires"
+    >
   ): Promise<User> {
     try {
       return await prisma.user.create({
@@ -29,7 +37,15 @@ export class AuthRepository {
   }
 
   async createSeller(
-    userData: Omit<User, "id" | "createdAt" | "updatedAt" | "avatarUrl">,
+    userData: Omit<
+      User,
+      | "id"
+      | "createdAt"
+      | "updatedAt"
+      | "avatarUrl"
+      | "resetPasswordToken"
+      | "resetPasswordExpires"
+    >,
     storeName: string
   ): Promise<User> {
     try {
@@ -68,6 +84,40 @@ export class AuthRepository {
       });
     } catch (error) {
       logger.error(`Error updating avatar for user: ${userId}`, error);
+      throw new Error("Database query failed");
+    }
+  }
+  async saveResetToken(
+    userId: string,
+    token: string,
+    expires: Date
+  ): Promise<void> {
+    try {
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          resetPasswordToken: token,
+          resetPasswordExpires: expires,
+        },
+      });
+    } catch (error) {
+      logger.error(`Error saving reset token for user: ${userId}`, error);
+      throw new Error("Database query failed");
+    }
+  }
+
+  async findUserByResetToken(token: string): Promise<User | null> {
+    try {
+      return await prisma.user.findFirst({
+        where: {
+          resetPasswordToken: token,
+          resetPasswordExpires: {
+            gt: new Date(),
+          },
+        },
+      });
+    } catch (error) {
+      logger.error(`Error finding user by reset token`, error);
       throw new Error("Database query failed");
     }
   }

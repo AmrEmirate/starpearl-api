@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Product, Prisma } from "../generated/prisma";
+import { Product, Prisma } from "@prisma/client";
 import logger from "../utils/logger";
 
 type CreateProductInput = Omit<Product, "id" | "createdAt" | "updatedAt">;

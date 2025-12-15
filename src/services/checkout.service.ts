@@ -3,7 +3,7 @@ import { CartRepository, FullCart } from "../repositories/cart.repository";
 import { OrderRepository } from "../repositories/order.repository";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
-import { Order, OrderStatus } from "../generated/prisma";
+import { Order, OrderStatus } from "@prisma/client";
 
 export class CheckoutService {
   private cartRepository: CartRepository;

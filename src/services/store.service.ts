@@ -1,4 +1,4 @@
-import { Store } from "../generated/prisma";
+import { Store } from "@prisma/client";
 import { StoreRepository } from "../repositories/store.repository";
 import { prisma } from "../config/prisma";
 import AppError from "../utils/AppError";

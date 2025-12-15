@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { ChatRoom, ChatMessage } from "../generated/prisma";
+import { ChatRoom, ChatMessage } from "@prisma/client";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 

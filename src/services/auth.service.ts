@@ -1,10 +1,11 @@
 import { compare } from "bcrypt";
+import crypto from "crypto";
 import { AuthRepository } from "../repositories/auth.repository";
 import AppError from "../utils/AppError";
 import { createToken } from "../utils/createToken";
 import { hashPassword } from "../utils/hashPassword";
 import { cloudinaryUpload } from "../config/cloudinary";
-import { User } from "../generated/prisma";
+import { User } from "@prisma/client";
 import logger from "../utils/logger";
 import { prisma } from "../config/prisma";
 
@@ -121,35 +122,40 @@ export class AuthService {
       throw new AppError("User not found", 404);
     }
 
-    // In a real app, we would generate a token and send an email.
-    // For this prototype, we will just return a success message and
-    // allow the user to set a new password directly via another endpoint
-    // or just simulate the email sending.
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
-    // Let's implement a direct reset for simplicity in this prototype
-    // assuming the user has verified their identity via other means (not implemented here)
-    // OR we can just say "Link sent to email" (Mock).
+    await this.authRepository.saveResetToken(
+      user.id,
+      resetToken,
+      passwordResetExpires
+    );
 
+    // In a real app, send email here.
     return {
-      message:
-        "Reset password link sent to email (Check console for mock token)",
+      message: "Reset password link sent to email",
+      token: resetToken, // Returning for testing purposes
     };
   }
 
   public async confirmResetPassword(data: {
-    email: string;
+    token: string;
     newPassword: string;
   }) {
-    const user = await this.authRepository.findUserByEmail(data.email);
+    const user = await this.authRepository.findUserByResetToken(data.token);
     if (!user) {
-      throw new AppError("User not found", 404);
+      throw new AppError("Token is invalid or has expired", 400);
     }
 
     const passwordHash = await hashPassword(data.newPassword);
 
     await prisma.user.update({
-      where: { email: data.email },
-      data: { passwordHash },
+      where: { id: user.id },
+      data: {
+        passwordHash,
+        resetPasswordToken: null,
+        resetPasswordExpires: null,
+      },
     });
 
     return { message: "Password successfully updated" };
