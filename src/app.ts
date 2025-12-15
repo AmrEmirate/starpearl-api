@@ -30,7 +30,7 @@ import AttributeRouter from "./routers/attribute.router";
 import VoucherRouter from "./routers/voucher.router";
 import StatsRouter from "./routers/stats.router";
 
-const PORT: string = process.env.PORT || "2020";
+const PORT: string = process.env.PORT as string;
 
 class App {
   public app: Application;
@@ -156,7 +156,9 @@ class App {
 
   public start(): void {
     this.app.listen(PORT, () => {
-      console.log(`API Running: http://localhost:${PORT}`);
+      console.log(
+        `API Running: ${process.env.API_BASE_URL || `http://localhost:${PORT}`}`
+      );
     });
   }
 
